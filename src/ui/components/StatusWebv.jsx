@@ -13,7 +13,7 @@ function StatusWebv() {
       >
         Status
       </div>
-      <iframe style={styles.webview} src={url} frameborder="0"></iframe>
+      <iframe style={styles.webview} src={url}></iframe>
     </div>
   );
 }
