@@ -1,17 +1,78 @@
+import { useState } from "react";
+
 function SetFreqTab() {
+  const [freq, setFreq] = useState("");
+  const [gain, setGain] = useState("0");
+  const [errMsg, setErrMsg] = useState("");
+
+  function handleApply() {
+    if (!freq) {
+      setErrMsg("Frekuensi harus diisi");
+      setTimeout(() => {
+        setErrMsg("");
+      }, 3000);
+      return;
+    }
+
+    const freqValue = parseFloat(freq);
+    if (freqValue < 24 || freqValue > 1000) {
+      setErrMsg("Frekuensi harus diantara 24 - 1000 Mhz");
+      setTimeout(() => {
+        setErrMsg("");
+      }, 3000);
+      return;
+    }
+
+    setErrMsg("");
+    const antSpace = freq >= 250 ? 0.25 : 0.45;
+
+    const data = {
+      center_freq: freq,
+      uniform_gain: parseFloat(gain),
+      ant_spacing_meters: antSpace,
+    };
+
+    console.log(JSON.stringify(data));
+  }
+
   return (
     <div style={styles.setFreqTab}>
-      <div style={{ borderBottom: "2px solid gray", marginBottom: "8px" }}>
-        Frequency Settings
-      </div>
+      {errMsg ? (
+        <div
+          style={{
+            borderBottom: "2px solid gray",
+            marginBottom: "8px",
+            backgroundColor: "darkred",
+            color: "white",
+            textAlign: "center",
+            fontWeight: "600",
+          }}
+        >
+          Error, {errMsg}
+        </div>
+      ) : (
+        <div style={{ borderBottom: "2px solid gray", marginBottom: "8px" }}>
+          Frequency Settings
+        </div>
+      )}
       <div style={styles.form}>
         <div style={styles.formLabel}>Frequency:</div>
-        <input style={{ width: "160px", ...styles.formInput }} type="text" />
+        <input
+          style={{ width: "160px", ...styles.formInput }}
+          type="number"
+          step="0.001"
+          value={freq}
+          onChange={(e) => setFreq(e.target.value)}
+        />
         <span style={{ marginLeft: "4px" }}>Mhz</span>
       </div>
       <div style={styles.form}>
         <div style={styles.formLabel}>Gain:</div>
-        <select style={styles.formInput}>
+        <select
+          style={styles.formInput}
+          value={gain}
+          onChange={(e) => setGain(e.target.value)}
+        >
           <option value="0">0.0</option>
           <option value="0.9">0.9</option>
           <option value="1.4">1.4</option>
@@ -43,7 +104,9 @@ function SetFreqTab() {
         <span style={{ marginLeft: "4px" }}>dB</span>
       </div>
       <div style={styles.btnContainer}>
-        <button style={styles.applyBtn}>Apply</button>
+        <button style={styles.applyBtn} onClick={handleApply}>
+          Apply
+        </button>
       </div>
     </div>
   );
@@ -76,7 +139,7 @@ const styles = {
   },
   applyBtn: {
     fontSize: "17pt",
-    padding: "4px",
+    padding: "4px 8px",
     margin: "8px",
     alignSelf: "flex-end",
   },
