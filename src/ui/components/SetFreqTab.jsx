@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { setAntena, setFreqApi } from "../../utils/apiHandler";
 
 function SetFreqTab() {
   const [freq, setFreq] = useState("");
@@ -24,15 +25,19 @@ function SetFreqTab() {
     }
 
     setErrMsg("");
-    const antSpace = freq >= 250 ? 0.25 : 0.45;
+    const centerFreq = parseFloat(freq);
+    const antSpace = centerFreq >= 250 ? 0.25 : 0.45;
+
+    setAntena(antSpace, "http://192.168.17.17:8087");
 
     const data = {
-      center_freq: freq,
+      center_freq: centerFreq,
       uniform_gain: parseFloat(gain),
       ant_spacing_meters: antSpace,
     };
 
-    console.log(JSON.stringify(data));
+    // console.log(JSON.stringify(data));
+    setFreqApi(data, "http://192.168.17.17:8087");
   }
 
   return (
