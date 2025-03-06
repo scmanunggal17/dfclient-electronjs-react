@@ -3,7 +3,7 @@ import { useState } from "react";
 import SetFreqTab from "./SetFreqTab";
 import CompassTab from "./CompassTab";
 import LocationTab from "./LocationTab";
-import PropertiesTab from "./PropertiesTab";
+import OptionTab from "./OptionTab";
 
 function ControlPanel() {
   const [activeTab, setActiveTab] = useState("SetFreq");
@@ -13,7 +13,7 @@ function ControlPanel() {
         {activeTab === "SetFreq" && <SetFreqTab />}
         {activeTab === "Compass" && <CompassTab />}
         {activeTab === "Location" && <LocationTab />}
-        {activeTab === "Properties" && <PropertiesTab />}
+        {activeTab === "Options" && <OptionTab />}
       </div>
       <div style={styles.tabContainer}>
         <button
@@ -35,10 +35,10 @@ function ControlPanel() {
           Location
         </button>
         <button
-          style={activeTab === "Properties" ? styles.activeTab : styles.tab}
-          onClick={() => setActiveTab("Properties")}
+          style={activeTab === "Options" ? styles.activeTab : styles.tab}
+          onClick={() => setActiveTab("Options")}
         >
-          Properties
+          Options
         </button>
       </div>
     </div>
