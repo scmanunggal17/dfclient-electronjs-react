@@ -38,7 +38,7 @@ function ControlPanel() {
           style={activeTab === "Properties" ? styles.activeTab : styles.tab}
           onClick={() => setActiveTab("Properties")}
         >
-          Location
+          Properties
         </button>
       </div>
     </div>

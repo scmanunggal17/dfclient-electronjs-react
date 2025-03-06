@@ -17,7 +17,7 @@ function App() {
 const styles = {
   container: {
     display: "grid",
-    gridTemplateRows: "40px 2fr 5fr 4fr",
+    gridTemplateRows: "40px 3fr 5fr 3fr",
     height: "100vh",
     minHeight: "500px",
     minWidth: "300px",

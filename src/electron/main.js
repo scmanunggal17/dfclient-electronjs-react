@@ -9,8 +9,8 @@ const createWindow = () => {
   const posX = width - 500;
 
   const win = new BrowserWindow({
-    minHeight: 500,
-    minWidth: 300,
+    minHeight: 700,
+    minWidth: 500,
     width: 500,
     height: winHeight,
     x: posX,

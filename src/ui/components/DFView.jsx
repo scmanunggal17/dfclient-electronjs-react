@@ -2,10 +2,13 @@ import circleAngle from "./../assets/circle-angle.png";
 
 function DFView() {
   return (
-    <div style={styles.dfView}>
-      <div style={styles.dfCircle}>
-        <div style={styles.dfAngle}>
-          <div style={styles.dfArrow}></div>
+    <div style={styles.container}>
+      <div style={styles.dfLabel}>DF</div>
+      <div style={styles.dfView}>
+        <div style={styles.dfCircle}>
+          <div style={styles.dfAngle}>
+            <div style={styles.dfArrow}></div>
+          </div>
         </div>
       </div>
     </div>
@@ -13,16 +16,36 @@ function DFView() {
 }
 
 const styles = {
+  container: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "whitesmoke",
+    position: "relative",
+  },
+  dfLabel: {
+    position: "absolute",
+    left: "0",
+    paddingLeft: "12px",
+    top: "6px",
+    width: "100px",
+    fontWeight: "500",
+    fontSize: "17pt",
+    borderBottom: "2px solid gray",
+  },
   dfView: {
+    height: "430px",
+    width: "430px",
     backgroundColor: "black",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    borderRadius: "44%",
   },
   dfCircle: {
     display: "flex",
-    height: "91%",
-    aspectRatio: 1,
+    height: "400px",
+    width: "400px",
     borderRadius: "50%",
     alignItems: "center",
     justifyContent: "center",
@@ -31,12 +54,12 @@ const styles = {
     backgroundSize: "cover",
   },
   dfAngle: {
-    height: "86%",
-    aspectRatio: 1,
+    height: "350px",
+    width: "350px",
     borderRadius: "50%",
     alignSelf: "center",
     margin: "0",
-    rotate: "45deg",
+    rotate: "0deg",
   },
   dfArrow: {
     height: "50%",
