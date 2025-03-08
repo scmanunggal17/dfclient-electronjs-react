@@ -7,7 +7,7 @@ const createWindow = () => {
 
   //Edit ini
   // const winHeight = height - 46;
-  const winHeight = 928 - 46;
+  const winHeight = 912;
   const posX = width - 400;
 
   const win = new BrowserWindow({

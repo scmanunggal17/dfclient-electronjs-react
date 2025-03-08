@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { turnOffDF, restartDF } from "../../utils/apiHandler";
 
 function OptionTab() {
   const [showNotifDialog, setShowNotifDialog] = useState(false);
@@ -59,14 +60,14 @@ const styles = {
     borderBottom: "2px solid lightgray",
   },
   formLabel: {
-    minWidth: "120px",
+    minWidth: "100px",
   },
   formSet: {
-    padding: "2px 4px",
+    padding: "4px 8px",
     marginLeft: "12px",
   },
   formInput: {
-    paddingLeft: "4px",
+    padding: "2px 4px",
     width: "150px",
   },
   button: {

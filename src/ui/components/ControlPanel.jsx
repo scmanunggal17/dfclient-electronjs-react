@@ -51,6 +51,7 @@ const styles = {
     flexDirection: "column",
     alignItems: "center",
     height: "100%",
+    paddingBottom: "4px",
   },
   content: {
     width: "100%",
@@ -68,13 +69,11 @@ const styles = {
   },
   tab: {
     padding: "3px 4px",
-    cursor: "pointer",
     border: "2px solid #ccc",
     background: "#ccc",
   },
   activeTab: {
     padding: "3px 4px",
-    cursor: "pointer",
     borderTop: "0",
     borderRight: "2px solid darkgray",
     borderLeft: "2px solid darkgray",

@@ -28,7 +28,6 @@ const styles = {
     width: "32px",
     height: "32px",
     borderRadius: "6px",
-    cursor: "pointer",
     justifyContent: "center",
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
