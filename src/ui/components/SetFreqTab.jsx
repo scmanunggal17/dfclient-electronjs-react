@@ -46,7 +46,6 @@ function SetFreqTab() {
         <div
           style={{
             borderBottom: "2px solid gray",
-            marginBottom: "8px",
             backgroundColor: "darkred",
             color: "white",
             textAlign: "center",
@@ -56,14 +55,16 @@ function SetFreqTab() {
           Error, {errMsg}
         </div>
       ) : (
-        <div style={{ borderBottom: "2px solid gray", marginBottom: "8px" }}>
-          Frequency Settings
+        <div style={{ borderBottom: "2px solid gray" }}>
+          <span style={{ marginLeft: "8px", fontWeight: "500" }}>
+            Frequency Settings
+          </span>
         </div>
       )}
       <div style={styles.form}>
         <div style={styles.formLabel}>Frequency:</div>
         <input
-          style={{ width: "160px", ...styles.formInput }}
+          style={{ width: "120px", ...styles.formInput }}
           type="number"
           step="0.001"
           value={freq}
@@ -119,20 +120,22 @@ function SetFreqTab() {
 
 const styles = {
   setFreqTab: {
-    padding: "8px",
+    padding: "4px 2px",
     display: "block",
   },
   form: {
     display: "flex",
-    margin: "2px",
+    margin: "4px",
     padding: "2px",
     borderBottom: "2px solid lightgray",
+    alignItems: "center",
   },
   formLabel: {
-    minWidth: "110px",
+    minWidth: "100px",
+    padding: "2px 0",
   },
   formInput: {
-    paddingLeft: "4px",
+    padding: "2px 4px",
   },
   btnContainer: {
     display: "flex",

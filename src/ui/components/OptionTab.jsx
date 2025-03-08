@@ -12,13 +12,8 @@ function OptionTab() {
 
   return (
     <div style={styles.OptionTab}>
-      <div
-        style={{
-          borderBottom: "2px solid gray",
-          marginBottom: "6px",
-        }}
-      >
-        Options
+      <div style={{ borderBottom: "2px solid gray" }}>
+        <span style={{ marginLeft: "8px", fontWeight: "500" }}>Options</span>
       </div>
       <div style={styles.form}>
         <span style={styles.formLabel}>Unit Name: </span>
@@ -52,8 +47,8 @@ function OptionTab() {
 
 const styles = {
   OptionTab: {
-    padding: "8px",
     display: "block",
+    padding: "4px 2px",
   },
   form: {
     display: "flex",
@@ -72,7 +67,7 @@ const styles = {
   },
   formInput: {
     paddingLeft: "4px",
-    width: "200px",
+    width: "150px",
   },
   button: {
     padding: "3px 6px",
