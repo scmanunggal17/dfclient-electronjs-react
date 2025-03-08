@@ -67,16 +67,13 @@ const styles = {
     padding: "1px 2px",
   },
   tab: {
-    fontSize: "16pt",
-    padding: "6px 10px",
+    padding: "3px 4px",
     cursor: "pointer",
     border: "2px solid #ccc",
     background: "#ccc",
-    // borderRadius: "5px",
   },
   activeTab: {
-    fontSize: "16pt",
-    padding: "6px 10px",
+    padding: "3px 4px",
     cursor: "pointer",
     borderTop: "0",
     borderRight: "2px solid darkgray",

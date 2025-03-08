@@ -7,7 +7,6 @@ function StatusWebv() {
         style={{
           padding: "4px 2px 0px 12px",
           fontWeight: "500",
-          fontSize: "16pt",
           borderBottom: "2px solid gray",
         }}
       >

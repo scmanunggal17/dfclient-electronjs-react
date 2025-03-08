@@ -17,11 +17,11 @@ function App() {
 const styles = {
   container: {
     display: "grid",
-    gridTemplateRows: "40px 3fr 5fr 3fr",
+    gridTemplateRows: "40px 3fr 4fr 3fr",
     height: "100vh",
     minHeight: "500px",
     minWidth: "300px",
-    fontSize: "16pt",
+    fontSize: "14pt",
   },
 };
 

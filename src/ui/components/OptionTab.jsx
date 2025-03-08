@@ -15,8 +15,7 @@ function OptionTab() {
       <div
         style={{
           borderBottom: "2px solid gray",
-          fontSize: "16pt",
-          marginBottom: "8px",
+          marginBottom: "6px",
         }}
       >
         Options
@@ -68,17 +67,14 @@ const styles = {
     minWidth: "120px",
   },
   formSet: {
-    fontSize: "16pt",
     padding: "2px 4px",
     marginLeft: "12px",
   },
   formInput: {
-    fontSize: "16pt",
     paddingLeft: "4px",
     width: "200px",
   },
   button: {
-    fontSize: "16pt",
     padding: "3px 6px",
     margin: "2px",
   },

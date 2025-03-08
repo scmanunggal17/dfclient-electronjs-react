@@ -5,13 +5,13 @@ const createWindow = () => {
   const primaryDisplay = screen.getPrimaryDisplay();
   const { width, height } = primaryDisplay.workAreaSize;
 
-  const winHeight = height - 50;
-  const posX = width - 500;
+  const winHeight = height - 48;
+  const posX = width - 400;
 
   const win = new BrowserWindow({
     minHeight: 700,
-    minWidth: 500,
-    width: 500,
+    minWidth: 400,
+    width: 400,
     height: winHeight,
     x: posX,
     y: 0,
