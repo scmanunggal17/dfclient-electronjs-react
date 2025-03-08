@@ -1,4 +1,4 @@
-let prevAntSpace = 0;
+let prevAntSpace = 0; //? is safe prev state necessary?
 
 export const setFreqApi = async (data, url) => {
   try {
@@ -41,6 +41,32 @@ export const setAntena = async (antSpace, url) => {
       console.log("Antenna set successfully to: ", jsonResponse);
       prevAntSpace = antSpace;
     }
+  } catch (error) {
+    console.error("Error: ", error);
+  }
+};
+
+export const turnOffDF = async (url) => {
+  try {
+    const response = await fetch(url + "/api/shutdown", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  } catch (error) {
+    console.error("Error: ", error);
+  }
+};
+
+export const restartDF = async (url) => {
+  try {
+    const response = await fetch(url + "/api/restart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   } catch (error) {
     console.error("Error: ", error);
   }
