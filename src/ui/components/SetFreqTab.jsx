@@ -121,11 +121,11 @@ const styles = {
   setFreqTab: {
     padding: "8px",
     display: "block",
-    fontSize: "17pt",
+    fontSize: "16pt",
   },
   form: {
     display: "flex",
-    fontSize: "17pt",
+    fontSize: "16pt",
     margin: "2px",
     padding: "2px",
     borderBottom: "2px solid lightgray",
@@ -134,7 +134,7 @@ const styles = {
     minWidth: "110px",
   },
   formInput: {
-    fontSize: "17pt",
+    fontSize: "16pt",
     paddingLeft: "4px",
   },
   btnContainer: {
@@ -143,7 +143,7 @@ const styles = {
     justifyContent: "flex-end",
   },
   applyBtn: {
-    fontSize: "17pt",
+    fontSize: "16pt",
     padding: "4px 8px",
     margin: "8px",
     alignSelf: "flex-end",
