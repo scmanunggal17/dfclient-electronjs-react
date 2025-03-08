@@ -28,7 +28,7 @@ function SetFreqTab() {
     const centerFreq = parseFloat(freq);
     const antSpace = centerFreq >= 250 ? 0.25 : 0.45;
 
-    setAntena(antSpace, "http://192.168.17.17:8087");
+    setAntena(antSpace);
 
     const data = {
       center_freq: centerFreq,
@@ -37,7 +37,7 @@ function SetFreqTab() {
     };
 
     // console.log(JSON.stringify(data));
-    setFreqApi(data, "http://192.168.17.17:8087");
+    setFreqApi(data);
   }
 
   return (

@@ -1,8 +1,9 @@
 let prevAntSpace = 0; //? is safe prev state necessary?
+const API_URL = "http://192.168.17.17:8087";
 
-export const setFreqApi = async (data, url) => {
+export const setFreqApi = async (data) => {
   try {
-    const response = await fetch(url + "/api/settings/freq", {
+    const response = await fetch(API_URL + "/api/settings/freq", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -18,7 +19,7 @@ export const setFreqApi = async (data, url) => {
   }
 };
 
-export const setAntena = async (antSpace, url) => {
+export const setAntena = async (antSpace) => {
   if (prevAntSpace === antSpace) {
     console.log("Antenna spacing is already set to ", antSpace);
     return;
@@ -30,7 +31,7 @@ export const setAntena = async (antSpace, url) => {
   }
 
   try {
-    const response = await fetch(url + "/api/ant/" + typeAnt, {
+    const response = await fetch(API_URL + "/api/ant/" + typeAnt, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -46,9 +47,13 @@ export const setAntena = async (antSpace, url) => {
   }
 };
 
-export const turnOffDF = async (url) => {
+export const turnOffDF = async () => {
+  setTimeout(() => {
+    console.log("Turning Off DF");
+    window.NodeFn.closeApp();
+  }, 2000);
   try {
-    const response = await fetch(url + "/api/shutdown", {
+    const response = await fetch(API_URL + "/api/shutdown", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -59,9 +64,13 @@ export const turnOffDF = async (url) => {
   }
 };
 
-export const restartDF = async (url) => {
+export const restartDF = async () => {
+  setTimeout(() => {
+    console.log("Restarting DF");
+    window.NodeFn.closeApp();
+  }, 2000);
   try {
-    const response = await fetch(url + "/api/restart", {
+    const response = await fetch(API_URL + "/api/restart", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

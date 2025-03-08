@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen } from "electron";
+import { app, BrowserWindow, screen, ipcMain } from "electron";
 import path from "node:path";
 
 const createWindow = () => {
@@ -26,7 +26,7 @@ const createWindow = () => {
   });
 
   win.loadFile("dist-react/index.html");
-  console.log("tinggi: " + height);
+  console.log("window Height: " + height);
 };
 
 app.whenReady().then(() => {
@@ -43,4 +43,10 @@ app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
   }
+});
+
+ipcMain.on("close-app", () => {
+  setTimeout(() => {
+    app.quit();
+  }, 3000);
 });

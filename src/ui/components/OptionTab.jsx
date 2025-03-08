@@ -5,33 +5,44 @@ function OptionTab() {
   const [showNotifDialog, setShowNotifDialog] = useState(false);
   const [msgDialog, setMsgDialog] = useState("");
 
-  //"System", "System akan restart dalam ± 2 menit"
-
   function handleTurnOff() {
+    turnOffDF();
     setMsgDialog(
-      "System akan mati dalam 1 menit.\nJangan langsung matikan sumber power!"
+      "System akan mati dalam ± 15 detik.\nJangan langsung matikan sumber power!"
     );
     setShowNotifDialog(true);
     setTimeout(() => {
       setShowNotifDialog(false);
-    }, 3000);
+    }, 5000);
+  }
+
+  function handleRestart() {
+    restartDF();
+    setMsgDialog(
+      "System akan restart dalam ± 1 menit. \nBuka Aplikasi kembali setelah 1 menit!"
+    );
+    setShowNotifDialog(true);
+    setTimeout(() => {
+      setShowNotifDialog(false);
+    }, 5000);
   }
 
   return (
     <div style={styles.OptionTab}>
       {showNotifDialog ? (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "darkred",
-            height: "200px",
-          }}
-        >
-          <div>System</div>
-          <div style={styles.msgDialog}>{msgDialog}</div>
+        <div style={styles.msgDialog}>
+          <div
+            style={{
+              fontSize: "20px",
+              fontWeight: "600",
+              padding: "2px 10px",
+              marginBottom: "2px",
+              borderBottom: "1px solid red",
+            }}
+          >
+            Power System
+          </div>
+          <div style={{ fontWeight: "500", fontSize: "16pt" }}>{msgDialog}</div>
         </div>
       ) : (
         <>
@@ -63,7 +74,9 @@ function OptionTab() {
               marginTop: "20px",
             }}
           >
-            <button style={styles.button}>Restart</button>
+            <button style={styles.button} onClick={handleRestart}>
+              Restart
+            </button>
             <button style={styles.button} onClick={handleTurnOff}>
               Turn OFF
             </button>
@@ -105,6 +118,10 @@ const styles = {
   msgDialog: {
     whiteSpace: "pre-line",
     textAlign: "center",
+    border: "3px solid red",
+    borderRadius: "8px",
+    margin: "30px 10px",
+    padding: "10px",
   },
 };
 
