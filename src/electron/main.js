@@ -5,7 +5,9 @@ const createWindow = () => {
   const primaryDisplay = screen.getPrimaryDisplay();
   const { width, height } = primaryDisplay.workAreaSize;
 
-  const winHeight = height - 46;
+  //Edit ini
+  // const winHeight = height - 46;
+  const winHeight = 928 - 46;
   const posX = width - 400;
 
   const win = new BrowserWindow({
@@ -24,6 +26,7 @@ const createWindow = () => {
   });
 
   win.loadFile("dist-react/index.html");
+  console.log("tinggi: " + height);
 };
 
 app.whenReady().then(() => {
