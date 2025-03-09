@@ -80,3 +80,24 @@ export const restartDF = async () => {
     console.error("Error: ", error);
   }
 };
+
+export const setStationId = async (nameId) => {
+  const stationId = {
+    id: nameId,
+  };
+  try {
+    const response = await fetch(API_URL + "/api/settings/station_id", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(stationId),
+    });
+    if (response.status === 200) {
+      const jsonResponse = await response.json();
+      console.log("Station ID set successfully: ", jsonResponse);
+    }
+  } catch (error) {
+    console.error("Error: ", error);
+  }
+};

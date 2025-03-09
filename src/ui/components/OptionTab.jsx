@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { turnOffDF, restartDF } from "../../utils/apiHandler";
+import { turnOffDF, restartDF, setStationId } from "../../utils/apiHandler";
 
 function OptionTab() {
   const [showNotifDialog, setShowNotifDialog] = useState(false);
   const [msgDialog, setMsgDialog] = useState("");
+  const [unitName, setUnitName] = useState("");
 
   function handleTurnOff() {
     turnOffDF();
@@ -25,6 +26,14 @@ function OptionTab() {
     setTimeout(() => {
       setShowNotifDialog(false);
     }, 5000);
+  }
+
+  function handleSetName() {
+    if (!unitName) {
+      return;
+    }
+
+    setStationId(unitName);
   }
 
   return (
@@ -53,8 +62,15 @@ function OptionTab() {
           </div>
           <div style={styles.form}>
             <span style={styles.formLabel}>Unit Name: </span>
-            <input style={styles.formInput} type="text" />
-            <button style={styles.formSet}>Set</button>
+            <input
+              style={styles.formInput}
+              type="text"
+              value={unitName}
+              onChange={(e) => setUnitName(e.target.value)}
+            />
+            <button style={styles.formSet} onClick={handleSetName}>
+              Set
+            </button>
           </div>
           <div>
             <span
