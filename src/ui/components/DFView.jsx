@@ -58,14 +58,14 @@ const styles = {
     borderRadius: "50%",
     alignSelf: "center",
     margin: "0",
-    rotate: "0deg",
+    rotate: "45deg",
   },
   dfArrow: {
     height: "50%",
     width: "6px",
     backgroundColor: "white",
     margin: "auto",
-    position: "relative",
+    // position: "relative",
     borderRadius: "3px",
   },
 };
