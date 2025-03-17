@@ -19,7 +19,7 @@ function CompassTab() {
           <div>Compass Correction</div>
           <input style={styles.cmpsCorrInput} type="number" step={1} />
           <button style={styles.cmpsSetBtn}>Set</button>
-          <button>Save Config</button>
+          <button style={styles.cmpsSetBtn}>Save Config</button>
         </div>
       </div>
     </div>
@@ -43,6 +43,7 @@ const styles = {
     backgroundColor: "lightblue",
     padding: "10px",
     alignItems: "center",
+    gap: "10px"
   },
   circle: {
     display: "flex",
@@ -94,7 +95,6 @@ const styles = {
   },
   cmpsSetBtn: {
     padding: "2px 10px",
-    marginLeft: "10px",
   },
 };
 
