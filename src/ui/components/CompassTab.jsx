@@ -29,21 +29,20 @@ function CompassTab() {
 const styles = {
   compassTab: {
     padding: "4px 2px",
-    backgroundColor: "whitesmoke",
+    backgroundColor: "white",
     height: "100%",
   },
   compassContainer: {
     display: "grid",
-    gridTemplateColumns: "1fr 2fr",
+    gridTemplateColumns: "2fr 3fr",
   },
   compassCircle: {},
   compassSetting: {
     display: "flex",
     flexDirection: "column",
-    backgroundColor: "lightblue",
-    padding: "10px",
+    padding: "30px 10px 10px",
     alignItems: "center",
-    gap: "10px"
+    gap: "10px",
   },
   circle: {
     display: "flex",
