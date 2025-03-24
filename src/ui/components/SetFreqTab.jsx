@@ -1,13 +1,17 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { setAntena, setFreqApi } from "../../utils/apiHandler";
 
-function SetFreqTab() {
-  const [freq, setFreq] = useState("");
-  const [gain, setGain] = useState("0");
+function SetFreqTab({ setFreqGain, freq, gain }) {
   const [errMsg, setErrMsg] = useState("");
 
+  const freqRef = useRef(null);
+  const gainRef = useRef(null);
+
   function handleApply() {
-    if (!freq) {
+    const newFreq = freqRef.current.value;
+    const newGain = gainRef.current.value;
+
+    if (!newFreq) {
       setErrMsg("Frekuensi harus diisi");
       setTimeout(() => {
         setErrMsg("");
@@ -15,8 +19,7 @@ function SetFreqTab() {
       return;
     }
 
-    const freqValue = parseFloat(freq);
-    if (freqValue < 24 || freqValue > 1000) {
+    if (newFreq < 24 || newFreq > 1000) {
       setErrMsg("Frekuensi harus diantara 24 - 1000 Mhz");
       setTimeout(() => {
         setErrMsg("");
@@ -25,20 +28,13 @@ function SetFreqTab() {
     }
 
     setErrMsg("");
-    const centerFreq = parseFloat(freq);
-    const antSpace = centerFreq >= 250 ? 0.25 : 0.45;
+    setFreqGain(newFreq, newGain);
 
-    setAntena(antSpace);
-
-    const data = {
-      center_freq: centerFreq,
-      uniform_gain: parseFloat(gain),
-      ant_spacing_meters: antSpace,
-    };
-
-    // console.log(JSON.stringify(data));
-    setFreqApi(data);
+    console.log("newFreq: ", newFreq);
+    console.log("newGain: ", newGain);
   }
+
+  console.log("setfreqtab loaded");
 
   return (
     <div style={styles.setFreqTab}>
@@ -67,18 +63,14 @@ function SetFreqTab() {
           style={{ width: "120px", ...styles.formInput }}
           type="number"
           step="0.001"
-          value={freq}
-          onChange={(e) => setFreq(e.target.value)}
+          defaultValue={freq}
+          ref={freqRef}
         />
         <span style={{ marginLeft: "4px" }}>Mhz</span>
       </div>
       <div style={styles.form}>
         <div style={styles.formLabel}>Gain:</div>
-        <select
-          style={styles.formInput}
-          value={gain}
-          onChange={(e) => setGain(e.target.value)}
-        >
+        <select style={styles.formInput} defaultValue={gain} ref={gainRef}>
           <option value="0">0.0</option>
           <option value="0.9">0.9</option>
           <option value="1.4">1.4</option>
@@ -110,7 +102,7 @@ function SetFreqTab() {
         <span style={{ marginLeft: "4px" }}>dB</span>
       </div>
       <div style={styles.btnContainer}>
-        <button style={styles.applyBtn} onClick={handleApply}>
+        <button type="button" style={styles.applyBtn} onClick={handleApply}>
           Apply
         </button>
       </div>
