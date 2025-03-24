@@ -1,19 +1,18 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { turnOffDF, restartDF, setStationId } from "../../utils/apiHandler";
 
-function OptionTab() {
-  const [showNotifDialog, setShowNotifDialog] = useState(false);
+function OptionTab({ setUnitName, unitName }) {
   const [msgDialog, setMsgDialog] = useState("");
-  const [unitName, setUnitName] = useState("");
+  const [errMsg, setErrMsg] = useState("");
+  const unitNameRef = useRef(null);
 
   function handleTurnOff() {
     turnOffDF();
     setMsgDialog(
       "System akan mati dalam ± 15 detik.\nJangan langsung matikan sumber power!"
     );
-    setShowNotifDialog(true);
     setTimeout(() => {
-      setShowNotifDialog(false);
+      setMsgDialog("");
     }, 5000);
   }
 
@@ -22,23 +21,29 @@ function OptionTab() {
     setMsgDialog(
       "System akan restart dalam ± 1 menit. \nBuka Aplikasi kembali setelah 1 menit!"
     );
-    setShowNotifDialog(true);
     setTimeout(() => {
-      setShowNotifDialog(false);
+      setMsgDialog("");
     }, 5000);
   }
 
   function handleSetName() {
-    if (!unitName) {
+    const newName = unitNameRef.current.value;
+    if (!newName) {
+      setErrMsg("Unit Name harus diisi");
+      setTimeout(() => {
+        setErrMsg("");
+      }, 3000);
       return;
     }
 
-    setStationId(unitName);
+    setErrMsg("");
+    setUnitName(newName);
+    setStationId(newName);
   }
 
   return (
     <div style={styles.OptionTab}>
-      {showNotifDialog ? (
+      {msgDialog ? (
         <div style={styles.msgDialog}>
           <div
             style={{
@@ -55,20 +60,38 @@ function OptionTab() {
         </div>
       ) : (
         <>
-          <div style={{ borderBottom: "2px solid gray" }}>
-            <span style={{ marginLeft: "8px", fontWeight: "500" }}>
-              Options
-            </span>
-          </div>
+          {errMsg ? (
+            <div
+              style={{
+                borderBottom: "2px solid gray",
+                backgroundColor: "darkred",
+                color: "white",
+                textAlign: "center",
+                fontWeight: "600",
+              }}
+            >
+              Error, {errMsg}
+            </div>
+          ) : (
+            <div style={{ borderBottom: "2px solid gray" }}>
+              <span style={{ marginLeft: "8px", fontWeight: "500" }}>
+                Options
+              </span>
+            </div>
+          )}
           <div style={styles.form}>
             <span style={styles.formLabel}>Unit Name: </span>
             <input
               style={styles.formInput}
               type="text"
-              value={unitName}
-              onChange={(e) => setUnitName(e.target.value)}
+              defaultValue={unitName}
+              ref={unitNameRef}
             />
-            <button style={styles.formSet} onClick={handleSetName}>
+            <button
+              type="button"
+              style={styles.formSet}
+              onClick={handleSetName}
+            >
               Set
             </button>
           </div>

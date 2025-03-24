@@ -9,8 +9,10 @@ import OptionTab from "./OptionTab";
 function ControlPanel() {
   const [activeTab, setActiveTab] = useState("SetFreq");
 
+  //perbaiki init state
   const [freq, setFreq] = useState(100);
   const [gain, setGain] = useState(0);
+  const [unitName, setUnitName] = useState("coba");
 
   // useEffect(() => {
   //   const fetchInitData = async () => {
@@ -50,7 +52,9 @@ function ControlPanel() {
         )}
         {activeTab === "Compass" && <CompassTab />}
         {activeTab === "Location" && <LocationTab />}
-        {activeTab === "Options" && <OptionTab />}
+        {activeTab === "Options" && (
+          <OptionTab setUnitName={setUnitName} unitName={unitName} />
+        )}
       </div>
       <div style={styles.tabContainer}>
         <button
