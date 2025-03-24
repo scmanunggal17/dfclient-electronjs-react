@@ -1,5 +1,6 @@
 let prevAntSpace = 0; //? is safe prev state necessary?
-const API_URL = "http://192.168.17.17:8087";
+// const API_URL = "http://192.168.17.17:8087";
+const API_URL = "http://localhost:3000";
 
 export const setFreqApi = async (data) => {
   try {
@@ -12,16 +13,16 @@ export const setFreqApi = async (data) => {
     });
     if (response.status === 200) {
       const jsonResponse = await response.json();
-      console.log("Frequency set successfully: ", jsonResponse);
+      console.log("setFreqApi Success: ", jsonResponse);
     }
   } catch (error) {
-    console.error("Error: ", error);
+    console.error("Error setFreqApi: ", error);
   }
 };
 
 export const setAntena = async (antSpace) => {
   if (prevAntSpace === antSpace) {
-    console.log("Antenna spacing is already set to ", antSpace);
+    console.log("setAntenna: Antenna spacing is already set to ", antSpace);
     return;
   }
 
@@ -39,7 +40,7 @@ export const setAntena = async (antSpace) => {
     });
     if (response.status === 200) {
       const jsonResponse = await response.json();
-      console.log("Antenna set successfully to: ", jsonResponse);
+      console.log("setAntenna Success: ", jsonResponse);
       prevAntSpace = antSpace;
     }
   } catch (error) {
@@ -60,7 +61,7 @@ export const turnOffDF = async () => {
       },
     });
   } catch (error) {
-    console.error("Error: ", error);
+    console.error("Error turnOffDF: ", error);
   }
 };
 
@@ -77,7 +78,7 @@ export const restartDF = async () => {
       },
     });
   } catch (error) {
-    console.error("Error: ", error);
+    console.error("Error RestartDF: ", error);
   }
 };
 
@@ -95,9 +96,9 @@ export const setStationId = async (nameId) => {
     });
     if (response.status === 200) {
       const jsonResponse = await response.json();
-      console.log("Station ID set successfully: ", jsonResponse);
+      console.log("setStationId Success: ", jsonResponse);
     }
   } catch (error) {
-    console.error("Error: ", error);
+    console.error("Error setStationId: ", error);
   }
 };
