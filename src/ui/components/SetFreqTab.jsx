@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-import { setAntena, setFreqApi } from "../../utils/apiHandler";
 
 function SetFreqTab({ setFreqGain, freq, gain }) {
   const [errMsg, setErrMsg] = useState("");
@@ -29,12 +28,7 @@ function SetFreqTab({ setFreqGain, freq, gain }) {
 
     setErrMsg("");
     setFreqGain(newFreq, newGain);
-
-    console.log("newFreq: ", newFreq);
-    console.log("newGain: ", newGain);
   }
-
-  console.log("setfreqtab loaded");
 
   return (
     <div style={styles.setFreqTab}>

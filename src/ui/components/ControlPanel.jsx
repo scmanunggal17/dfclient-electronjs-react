@@ -12,9 +12,6 @@ function ControlPanel() {
   const [freq, setFreq] = useState(100);
   const [gain, setGain] = useState(0);
 
-  console.log("freq: ", freq);
-  console.log("gain: ", gain);
-
   // useEffect(() => {
   //   const fetchInitData = async () => {
   //     try {
@@ -43,7 +40,6 @@ function ControlPanel() {
       ant_spacing_meters: antSpace,
     };
     setFreqApi(data);
-    console.log("change freq and gain");
   }
 
   return (
