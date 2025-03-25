@@ -1,6 +1,6 @@
 let prevAntSpace = 0; //? is safe prev state necessary?
 // const API_URL = "http://192.168.17.17:8087";
-const API_URL = "http://localhost:3000";
+export const API_URL = "http://localhost:3000";
 
 export const setFreqApi = async (data) => {
   try {
