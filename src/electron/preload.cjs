@@ -22,12 +22,12 @@ contextBridge.exposeInMainWorld("NodeFn", {
           if (err.code === "ENOENT") {
             const defaultData = JSON.stringify(
               {
-                latDms: "00°00'00.0\"N",
-                lonDms: "00°00'00.0\"E",
-                zone: "00T",
-                easting: "000000",
-                northing: "000000",
-                co: "00",
+                latDms: "0",
+                lonDms: "",
+                zone: "0",
+                easting: "0",
+                northing: "0",
+                co: "0",
                 compassOffset: 0,
               },
               null,
