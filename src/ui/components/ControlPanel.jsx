@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { API_URL } from "../../utils/apiHandler";
 
 import { setAntena, setFreqApi } from "../../utils/apiHandler";
 import SetFreqTab from "./SetFreqTab";
@@ -14,20 +15,31 @@ function ControlPanel() {
   const [gain, setGain] = useState(0);
   const [unitName, setUnitName] = useState("coba");
 
-  // useEffect(() => {
-  //   const fetchInitData = async () => {
-  //     try {
-  //       const response = await fetch(`${url}/api/settings`);
-  //       const data = await response.json();
-  //       setFreq(data.center_freq);
-  //       setGain(data.uniform_gain);
-  //     } catch (error) {
-  //       console.error("Error fetching initial data on start: ", error);
-  //     }
-  //   };
+  const [savedCoord, setSavedCoord] = useState({
+    latDms: "0",
+    lonDms: "",
+    zone: "0",
+    easting: "0",
+    northing: "0",
+    co: "0",
+    compassOffset: 0,
+  });
 
-  //   fetchInitData();
-  // }, []);
+  useEffect(() => {
+    fetchInitData();
+    readSavedCoords();
+  }, []);
+
+  async function fetchInitData() {
+    try {
+      const response = await fetch(`${API_URL}/api/settings`);
+      const data = await response.json();
+      setFreq(data.center_freq);
+      setGain(data.uniform_gain);
+    } catch (error) {
+      console.error("Error fetching initial data on start: ", error);
+    }
+  }
 
   function setFreqGain(newFreq, newGain) {
     setFreq(newFreq);
@@ -44,6 +56,47 @@ function ControlPanel() {
     setFreqApi(data);
   }
 
+  function readSavedCoords() {
+    window.NodeFn.readFile("data-coord.json", "utf8")
+      .then((data) => {
+        const jsonData = JSON.parse(data);
+        setSavedCoord((prev) => ({
+          ...prev,
+          latDms: jsonData.latDms,
+          lonDms: jsonData.lonDms,
+          zone: jsonData.zone,
+          easting: jsonData.easting,
+          northing: jsonData.northing,
+          co: jsonData.co,
+          compassOffset: jsonData.compassOffset,
+        }));
+
+        console.log("Read saved coords: ", JSON.stringify(jsonData));
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  function writeCmpsOffset(offsetValue) {
+    setSavedCoord((prev) => ({
+      ...prev,
+      compassOffset: offsetValue,
+    }));
+  }
+
+  function writeSavedCoord(latDms, lonDms, zone, easting, northing, co) {
+    setSavedCoord((prev) => ({
+      ...prev,
+      latDms: latDms,
+      lonDms: lonDms,
+      zone: zone,
+      easting: easting,
+      northing: northing,
+      co: co,
+    }));
+  }
+
   return (
     <div style={styles.container}>
       <div style={styles.content}>
@@ -51,7 +104,12 @@ function ControlPanel() {
           <SetFreqTab setFreqGain={setFreqGain} freq={freq} gain={gain} />
         )}
         {activeTab === "Compass" && <CompassTab />}
-        {activeTab === "Location" && <LocationTab />}
+        {activeTab === "Location" && (
+          <LocationTab
+            writeSavedCoord={writeSavedCoord}
+            savedCoord={savedCoord}
+          />
+        )}
         {activeTab === "Options" && (
           <OptionTab setUnitName={setUnitName} unitName={unitName} />
         )}
