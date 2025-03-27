@@ -102,3 +102,54 @@ export const setStationId = async (nameId) => {
     console.error("Error setStationId: ", error);
   }
 };
+
+export const readGPS = async () => {
+  try {
+    const response = await fetch(`${API_URL}/api/gps/status`);
+    if (!response.ok) {
+      throw new Error("Error reading GPS");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export function decimalToDMS(decimal, isLatitude) {
+  if (isNaN(decimal) || decimal < -180 || decimal > 180) {
+    throw new Error("Invalid decimal degrees");
+  }
+
+  // Get the absolute value for the conversion
+  const positiveDecimal = Math.abs(decimal);
+
+  // Calculate degrees, minutes, and seconds
+  const degrees = Math.floor(positiveDecimal);
+  const minutesDecimal = (positiveDecimal - degrees) * 60;
+  const minutes = Math.floor(minutesDecimal);
+  const seconds = (minutesDecimal - minutes) * 60;
+
+  let direction = "";
+  if (isLatitude) {
+    direction = decimal >= 0 ? "N" : "S";
+  } else {
+    direction = decimal >= 0 ? "E" : "W";
+  }
+
+  const dmsString = `${degrees}°${minutes}'${seconds.toFixed(2)}"${direction}`;
+
+  return dmsString;
+}
+
+export function isDmsRegexMatch(dmsString) {
+  const dmsRegex =
+    /(-?\d+(?:\.\d+)?)[°](\d+(?:\.\d+)?)['′](\d+(?:\.\d+)?)(?:["″])?([NSEW])/i;
+  const matches = dmsString.match(dmsRegex);
+
+  if (matches) {
+    return true;
+  } else {
+    return false;
+  }
+}
