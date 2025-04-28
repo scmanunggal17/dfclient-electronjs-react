@@ -142,6 +142,33 @@ export function decimalToDMS(decimal, isLatitude) {
   return dmsString;
 }
 
+export function dmsToDecimal(dmsString) {
+  // Regular expression to extract degrees, minutes, seconds, and direction
+  const dmsRegex =
+    /(-?\d+(?:\.\d+)?)[°](\d+(?:\.\d+)?)['′](\d+(?:\.\d+)?)(?:["″])?([NSEW])/i;
+  const matches = dmsString.match(dmsRegex);
+
+  if (!matches) {
+    showNotifBox(
+      "Error",
+      `Masukan Format Koordinat dengan benar\nContoh:\nLatitude: 6°10'31.36"S\nLongitude: 106°49'37.26"E`
+    );
+  }
+
+  const degrees = parseFloat(matches[1]);
+  const minutes = parseFloat(matches[2]);
+  const seconds = parseFloat(matches[3]);
+  const direction = matches[4];
+
+  let decimalDegrees = degrees + minutes / 60 + seconds / 3600;
+
+  if (direction === "S" || direction === "W") {
+    decimalDegrees *= -1;
+  }
+
+  return decimalDegrees;
+}
+
 export function isDmsRegexMatch(dmsString) {
   const dmsRegex =
     /(-?\d+(?:\.\d+)?)[°](\d+(?:\.\d+)?)['′](\d+(?:\.\d+)?)(?:["″])?([NSEW])/i;

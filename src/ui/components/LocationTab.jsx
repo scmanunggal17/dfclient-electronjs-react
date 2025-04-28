@@ -1,5 +1,10 @@
 import { useRef, useState, useEffect } from "react";
-import { readGPS, decimalToDMS, isDmsRegexMatch } from "../../utils/apiHandler";
+import {
+  readGPS,
+  decimalToDMS,
+  isDmsRegexMatch,
+  dmsToDecimal,
+} from "../../utils/apiHandler";
 
 function Location({ writeSavedCoord, savedCoord }) {
   const [errMsg, setErrMsg] = useState("");
@@ -16,7 +21,6 @@ function Location({ writeSavedCoord, savedCoord }) {
 
   console.log("location tab loaded");
 
-  //apply this
   function startFetchIntervalGPS() {
     if (intervalFetchGPS.current) return;
     setIsReadingGPS(true);
@@ -50,8 +54,39 @@ function Location({ writeSavedCoord, savedCoord }) {
   }
 
   function convertToUTM() {
-    const latDms = latRef.current.value;
-    const lonDms = lonRef.current.value;
+    const lat = latRef.current.value;
+    const lon = lonRef.current.value;
+
+    if (!lat || !lon) {
+      setErrMsg("Field tidak boleh kosong");
+      return;
+    }
+
+    if (!isDmsRegexMatch(lat)) {
+      setErrMsg("Format latitude salah");
+      return;
+    }
+
+    if (!isDmsRegexMatch(lon)) {
+      setErrMsg("Format longitude salah");
+      return;
+    }
+
+    const latitude = dmsToDecimal(lat);
+    const longitude = dmsToDecimal(lon);
+
+    const utmCoord = window.NodeFn.convertUtm(latitude, longitude);
+    zoneRef.current.value = utmCoord.zoneNum + utmCoord.zoneLetter;
+    eastingRef.current.value = utmCoord.easting.toFixed(2);
+    northingRef.current.value = utmCoord.northing.toFixed(2);
+
+    const strCOE = Math.round(utmCoord.easting).toString();
+    const strCON = Math.round(utmCoord.northing).toString();
+
+    coRef.current.value = `${strCOE.substring(
+      1,
+      strCOE.length - 1
+    )}, ${strCON.substring(2, strCON.length - 1)}`;
   }
 
   useEffect(() => {
@@ -66,7 +101,11 @@ function Location({ writeSavedCoord, savedCoord }) {
       {errMsg ? (
         <div
           style={{
-            backgroundColor: "red",
+            height: "50%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "lightcoral",
           }}
         >
           {errMsg}
@@ -143,7 +182,11 @@ function Location({ writeSavedCoord, savedCoord }) {
         >
           Read gps
         </button>
-        <button style={styles.actButton} disabled={isReadingGPS}>
+        <button
+          style={styles.actButton}
+          onClick={convertToUTM}
+          disabled={isReadingGPS}
+        >
           Convert to utm
         </button>
         <button style={styles.actButton}>Save All</button>
