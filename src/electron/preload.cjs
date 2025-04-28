@@ -1,10 +1,14 @@
 const { contextBridge, ipcRenderer } = require("electron");
 const fs = require("fs");
+const utm = require("utm");
 const { resolve } = require("path");
 
 contextBridge.exposeInMainWorld("NodeFn", {
   closeApp: () => {
     ipcRenderer.send("close-app");
+  },
+  convertUtm: (lat, lon) => {
+    return utm.fromLatLon(lat, lon);
   },
   writeFile: (path, data, options) => {
     fs.writeFile(path, data, options, (err) => {
