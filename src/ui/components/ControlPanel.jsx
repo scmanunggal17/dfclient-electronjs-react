@@ -182,7 +182,6 @@ const styles = {
     borderLeft: "2px solid darkgray",
     borderBottom: "2px solid darkgray",
     background: "whitesmoke",
-    // borderRadius: "5px",
   },
 };
 
