@@ -11,12 +11,14 @@ contextBridge.exposeInMainWorld("NodeFn", {
     return utm.fromLatLon(lat, lon);
   },
   writeFile: (path, data, options) => {
-    fs.writeFile(path, data, options, (err) => {
-      if (err) {
-        rejects(err);
-      } else {
-        resolve();
-      }
+    return new Promise((resolve, reject) => {
+      fs.writeFile(path, data, options, (err) => {
+        if (err) {
+          rejects(err);
+        } else {
+          resolve();
+        }
+      });
     });
   },
   readFile: (path, options) => {

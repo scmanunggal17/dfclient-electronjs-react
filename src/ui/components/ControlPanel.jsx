@@ -107,6 +107,27 @@ function ControlPanel() {
       northing: northing,
       co: co,
     }));
+
+    const dataToSave = {
+      ...savedCoord,
+      latDms,
+      lonDms,
+      zone,
+      easting,
+      northing,
+      co,
+    };
+    console.log(dataToSave);
+
+    const strDataToSave = JSON.stringify(dataToSave, null, 2);
+
+    window.NodeFn.writeFile("data-coord.json", strDataToSave, "utf8")
+      .then(() => {
+        console.log("write success");
+      })
+      .catch((err) => {
+        console.error("write error", err);
+      });
   }
 
   return (

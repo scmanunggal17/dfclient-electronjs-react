@@ -21,6 +21,17 @@ function Location({ writeSavedCoord, savedCoord }) {
 
   console.log("location tab loaded");
 
+  function saveCoord() {
+    const newLat = latRef.current.value;
+    const newLon = lonRef.current.value;
+    const newZone = zoneRef.current.value;
+    const newEasting = eastingRef.current.value;
+    const newNorthing = northingRef.current.value;
+    const newCo = coRef.current.value;
+
+    writeSavedCoord(newLat, newLon, newZone, newEasting, newNorthing, newCo);
+  }
+
   function startFetchIntervalGPS() {
     if (intervalFetchGPS.current) return;
     setIsReadingGPS(true);
@@ -189,7 +200,9 @@ function Location({ writeSavedCoord, savedCoord }) {
         >
           Convert to utm
         </button>
-        <button style={styles.actButton}>Save All</button>
+        <button style={styles.actButton} onClick={saveCoord}>
+          Save All
+        </button>
       </div>
     </div>
   );
