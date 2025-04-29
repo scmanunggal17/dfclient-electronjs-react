@@ -1,6 +1,7 @@
+import { API_URL } from "../../utils/apiHandler";
+
 function StatusWebv() {
-  // const url = "http://localhost:3000/config";
-  const url = "http://192.168.17.17:8087/config";
+  const url = `${API_URL}/config`;
   return (
     <div style={styles.status}>
       <div
