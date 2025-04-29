@@ -6,6 +6,8 @@ function OptionTab({ setUnitName, unitName }) {
   const [errMsg, setErrMsg] = useState("");
   const unitNameRef = useRef(null);
 
+  console.log("name: " + unitName);
+
   function handleTurnOff() {
     turnOffDF();
     setMsgDialog(

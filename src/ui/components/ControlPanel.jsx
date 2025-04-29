@@ -8,6 +8,9 @@ import LocationTab from "./LocationTab";
 import OptionTab from "./OptionTab";
 
 function ControlPanel() {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const [activeTab, setActiveTab] = useState("SetFreq");
   const [freq, setFreq] = useState(null);
   const [gain, setGain] = useState(null);
@@ -30,6 +33,9 @@ function ControlPanel() {
   }, []);
 
   async function fetchInitData() {
+    setLoading(true);
+    setError(null);
+
     try {
       const response = await fetch(`${API_URL}/api/settings`);
       if (!response.ok) {
@@ -38,9 +44,12 @@ function ControlPanel() {
       const data = await response.json();
       setFreq(data.center_freq);
       setGain(data.uniform_gain);
-      setUnitName(data.unit_name);
+      setUnitName(data.station_id);
     } catch (error) {
       console.error("Error fetching initial data on start: ", error);
+      setError(error.message || "Unknown error");
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -103,9 +112,20 @@ function ControlPanel() {
   return (
     <div style={styles.container}>
       <div style={styles.content}>
-        {activeTab === "SetFreq" && freq !== null && gain != null && (
-          <SetFreqTab setFreqGain={setFreqGain} freq={freq} gain={gain} />
-        )}
+        {activeTab === "SetFreq" &&
+          (loading ? (
+            <div>Loading...</div>
+          ) : error ? (
+            <div style={{ color: "red" }}>Error: {error}</div>
+          ) : (
+            <SetFreqTab
+              setFreqGain={setFreqGain}
+              freq={freq}
+              gain={gain}
+              unitName={unitName}
+            />
+          ))}
+
         {activeTab === "Compass" && <CompassTab />}
         {activeTab === "Location" && (
           <LocationTab
@@ -189,4 +209,3 @@ const styles = {
 };
 
 export default ControlPanel;
-// buat loading seperti di chatgpt
