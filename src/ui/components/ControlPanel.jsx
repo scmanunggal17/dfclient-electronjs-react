@@ -9,11 +9,10 @@ import OptionTab from "./OptionTab";
 
 function ControlPanel() {
   const [activeTab, setActiveTab] = useState("SetFreq");
+  const [freq, setFreq] = useState(null);
+  const [gain, setGain] = useState(null);
 
-  //perbaiki init state
-  const [freq, setFreq] = useState(100);
-  const [gain, setGain] = useState(0);
-  const [unitName, setUnitName] = useState("coba");
+  const [unitName, setUnitName] = useState("");
 
   const [savedCoord, setSavedCoord] = useState({
     latDms: "0",
@@ -33,9 +32,13 @@ function ControlPanel() {
   async function fetchInitData() {
     try {
       const response = await fetch(`${API_URL}/api/settings`);
+      if (!response.ok) {
+        throw new Error(`fetch "/api/settings", error: ${response.status}`);
+      }
       const data = await response.json();
       setFreq(data.center_freq);
       setGain(data.uniform_gain);
+      setUnitName(data.unit_name);
     } catch (error) {
       console.error("Error fetching initial data on start: ", error);
     }
@@ -100,7 +103,7 @@ function ControlPanel() {
   return (
     <div style={styles.container}>
       <div style={styles.content}>
-        {activeTab === "SetFreq" && (
+        {activeTab === "SetFreq" && freq !== null && gain != null && (
           <SetFreqTab setFreqGain={setFreqGain} freq={freq} gain={gain} />
         )}
         {activeTab === "Compass" && <CompassTab />}
@@ -186,3 +189,4 @@ const styles = {
 };
 
 export default ControlPanel;
+// buat loading seperti di chatgpt
