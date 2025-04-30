@@ -1,7 +1,6 @@
 const { contextBridge, ipcRenderer } = require("electron");
 const fs = require("fs");
 const utm = require("utm");
-const { resolve } = require("path");
 
 contextBridge.exposeInMainWorld("NodeFn", {
   closeApp: () => {
