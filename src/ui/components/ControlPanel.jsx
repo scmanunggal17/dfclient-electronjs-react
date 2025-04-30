@@ -147,7 +147,12 @@ function ControlPanel() {
             />
           ))}
 
-        {activeTab === "Compass" && <CompassTab />}
+        {activeTab === "Compass" && (
+          <CompassTab
+            writeCmpsOffset={writeCmpsOffset}
+            cmpsOffset={savedCoord.compassOffset}
+          />
+        )}
         {activeTab === "Location" && (
           <LocationTab
             writeSavedCoord={writeSavedCoord}

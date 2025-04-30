@@ -1,4 +1,8 @@
-function CompassTab() {
+import { useRef } from "react";
+
+function CompassTab({ writeCmpsOffset, cmpsOffset }) {
+  const cmpsOffsetRef = useRef(null);
+
   return (
     <div style={styles.compassTab}>
       <div style={{ borderBottom: "2px solid gray" }}>
@@ -17,7 +21,12 @@ function CompassTab() {
         </div>
         <div style={styles.compassSetting}>
           <div>Compass Correction</div>
-          <input style={styles.cmpsCorrInput} type="number" step={1} />
+          <input
+            style={styles.cmpsCorrInput}
+            type="number"
+            defaultValue={cmpsOffset}
+            ref={cmpsOffsetRef}
+          />
           <button style={styles.cmpsSetBtn}>Set</button>
           <button style={styles.cmpsSetBtn}>Save Config</button>
         </div>
