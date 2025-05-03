@@ -103,17 +103,46 @@ export const setStationId = async (nameId) => {
   }
 };
 
-export const readGPS = async () => {
-  try {
-    const response = await fetch(`${API_URL}/api/gps/status`);
-    if (!response.ok) {
-      throw new Error("Error reading GPS");
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    return error;
+export const readCompass = async () => {
+  const response = await fetch(`${API_URL}/api/compass`);
+  if (!response.ok) {
+    throw new Error("Error reading compass");
   }
+  return await response.json();
+};
+
+export const readGPS = async () => {
+  const response = await fetch(`${API_URL}/api/gps/status`);
+  if (!response.ok) {
+    throw new Error("Error reading GPS");
+  }
+  return await response.json();
+};
+
+export const readSettings = async () => {
+  const response = await fetch(`${API_URL}/api/settings`);
+  if (!response.ok) {
+    throw new Error("fetch /api/settings, error: ", response.status);
+  }
+  return await response.json();
+};
+
+export const readDF = async () => {
+  const response = await fetch(`${API_URL}/df`);
+  if (!response.ok) {
+    throw new Error("Error reading DF");
+  }
+
+  const resText = await response.text();
+  const dataArray = resText.split(",");
+  const data = {
+    time: dataArray[0].trim(),
+    heading: dataArray[1].trim(),
+    confidence: dataArray[2].trim(),
+    power: dataArray[3].trim(),
+  };
+
+  return data;
 };
 
 export function decimalToDMS(decimal, isLatitude) {

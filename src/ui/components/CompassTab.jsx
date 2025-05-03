@@ -1,7 +1,9 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
-function CompassTab({ writeCmpsOffset, cmpsOffset }) {
+function CompassTab({ writeCmpsOffsetCfg, cmpsOffset, cmpsHeading }) {
   const cmpsOffsetRef = useRef(null);
+
+  console.log("cmpsHeading: ", cmpsHeading);
 
   return (
     <div style={styles.compassTab}>
@@ -11,13 +13,19 @@ function CompassTab({ writeCmpsOffset, cmpsOffset }) {
       <div style={styles.compassContainer}>
         <div style={styles.compassCircle}>
           <div style={styles.circle}>
-            <div style={styles.circleAngle}>
+            <div
+              style={{
+                ...styles.circleAngle,
+                transform: `rotate(${cmpsHeading}deg)`,
+                transition: "transform 0.2s ease",
+              }}
+            >
               <div style={styles.circleArrow}>
                 <span style={styles.northText}>N</span>
               </div>
             </div>
           </div>
-          <div style={styles.angleValue}>000</div>
+          <div style={styles.angleValue}>{cmpsHeading}</div>
         </div>
         <div style={styles.compassSetting}>
           <div>Compass Correction</div>
@@ -68,7 +76,6 @@ const styles = {
     width: "70px",
     borderRadius: "50%",
     backgroundColor: "black",
-    rotate: "45deg",
   },
   circleArrow: {
     height: "50%",

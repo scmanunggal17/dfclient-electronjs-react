@@ -35,6 +35,7 @@ function Location({ writeSavedCoord, savedCoord }) {
   function startFetchIntervalGPS() {
     if (intervalFetchGPS.current) return;
     setIsReadingGPS(true);
+
     intervalFetchGPS.current = setInterval(() => {
       console.log("start read gps, counter: ", counterIntervalGPS.current);
       readGPS()
@@ -56,11 +57,11 @@ function Location({ writeSavedCoord, savedCoord }) {
   }
 
   function stopFetchIntervalGPS() {
-    setIsReadingGPS(false);
-    console.log("stop read gps");
     if (intervalFetchGPS.current) {
       clearInterval(intervalFetchGPS.current);
       intervalFetchGPS.current = null;
+      setIsReadingGPS(false);
+      console.log("stop read gps");
     }
   }
 

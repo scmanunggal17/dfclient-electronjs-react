@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
-import { API_URL } from "../../utils/apiHandler";
 
-import { setAntena, setFreqApi } from "../../utils/apiHandler";
+import { setAntena, setFreqApi, readSettings } from "../../utils/apiHandler";
 import SetFreqTab from "./SetFreqTab";
 import CompassTab from "./CompassTab";
 import LocationTab from "./LocationTab";
 import OptionTab from "./OptionTab";
 
-function ControlPanel() {
+function ControlPanel({ cmpsHeading }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -37,11 +36,7 @@ function ControlPanel() {
     setError(null);
 
     try {
-      const response = await fetch(`${API_URL}/api/settings`);
-      if (!response.ok) {
-        throw new Error(`fetch "/api/settings", error: ${response.status}`);
-      }
-      const data = await response.json();
+      const data = await readSettings();
       setFreq(data.center_freq);
       setGain(data.uniform_gain);
       setUnitName(data.station_id);
@@ -90,7 +85,8 @@ function ControlPanel() {
       });
   }
 
-  function writeCmpsOffset(offsetValue) {
+  //correct this
+  function writeCmpsOffsetCfg(offsetValue) {
     setSavedCoord((prev) => ({
       ...prev,
       compassOffset: offsetValue,
@@ -149,8 +145,9 @@ function ControlPanel() {
 
         {activeTab === "Compass" && (
           <CompassTab
-            writeCmpsOffset={writeCmpsOffset}
+            writeCmpsOffsetCfg={writeCmpsOffsetCfg}
             cmpsOffset={savedCoord.compassOffset}
+            cmpsHeading={cmpsHeading}
           />
         )}
         {activeTab === "Location" && (
