@@ -1,12 +1,18 @@
 import circleAngle from "./../assets/circle-angle.png";
 
-function DFView() {
+function DFView({ dfHeading }) {
   return (
     <div style={styles.container}>
       <div style={styles.dfLabel}>DF</div>
       <div style={styles.dfView}>
         <div style={styles.dfCircle}>
-          <div style={styles.dfAngle}>
+          <div
+            style={{
+              ...styles.dfAngle,
+              transform: `rotate(${dfHeading}deg)`,
+              transition: "transform 0.2s ease",
+            }}
+          >
             <div style={styles.dfArrow}></div>
           </div>
         </div>
@@ -58,7 +64,7 @@ const styles = {
     borderRadius: "50%",
     alignSelf: "center",
     margin: "0",
-    rotate: "45deg",
+    // rotate: "45deg",
   },
   dfArrow: {
     height: "50%",

@@ -1,14 +1,15 @@
 import StatusWebv from "./components/StatusWebv";
 import TopPanel from "./components/TopPanel";
-import DFView from "./components/DFView";
 import ControlPanel from "./components/ControlPanel";
 import { readCompass, readDF } from "../utils/apiHandler";
 import { useRef, useEffect, useState } from "react";
+import PlotContainer from "./components/PlotContainer";
 
 function App() {
   const intervalFetchCmps = useRef(null);
   const intervalFetchDF = useRef(null);
   const [cmpsHeading, setCmpsHeading] = useState(0);
+  const [dfHeading, setDfHeading] = useState(0);
 
   function startFetchIntervalCmps() {
     if (intervalFetchCmps.current) return;
@@ -40,7 +41,7 @@ function App() {
       console.log("start read DF");
       readDF()
         .then((dfData) => {
-          console.log("df data: ", JSON.stringify(dfData));
+          setDfHeading(dfData.heading);
         })
         .catch((err) => {
           console.error(err);
@@ -61,7 +62,7 @@ function App() {
     startFetchIntervalDF();
     return () => {
       stopFetchIntervalCmps();
-      startFetchIntervalDF();
+      stopFetchIntervalDF();
     }; // Cleanup function to stop intervals on unmount
   }, []);
 
@@ -69,7 +70,7 @@ function App() {
     <div style={styles.container}>
       <TopPanel />
       <StatusWebv />
-      <DFView />
+      <PlotContainer dfHeading={dfHeading} />
       <ControlPanel cmpsHeading={cmpsHeading} />
     </div>
   );
