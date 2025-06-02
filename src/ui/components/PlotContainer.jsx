@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { act, useState } from "react";
 import DFRelativePlot from "./DFRelativePlot";
 import DFAbsolutePlot from "./DFAbsolutePlot";
 
@@ -10,7 +10,7 @@ function PlotContainer({ dfHeading }) {
       <div style={styles.title}>
         <div>DF</div>
         <div style={styles.buttonContainer}>
-          <div>Plot: </div>
+          <div style={{ marginRight: "10px" }}>Plot:</div>
           <div style={styles.radioContainer}>
             <label>
               <div style={{ display: "flex" }}>
@@ -20,7 +20,7 @@ function PlotContainer({ dfHeading }) {
                   checked={activeTab === "relativeTab"}
                   onChange={(e) => setActiveTab(e.target.value)}
                 />
-                <div style={{ maxWidth: "80px" }}>Relative</div>
+                <div>Relative</div>
               </div>
             </label>
             <label>
@@ -31,7 +31,18 @@ function PlotContainer({ dfHeading }) {
                   checked={activeTab === "absoluteTab"}
                   onChange={(e) => setActiveTab(e.target.value)}
                 />
-                <div style={{ maxWidth: "80px" }}>Absolute</div>
+                <div>North Cmps</div>
+              </div>
+            </label>
+            <label>
+              <div style={{ display: "flex" }}>
+                <input
+                  type="radio"
+                  value={"detailPlotTab"}
+                  checked={activeTab === "detailPlotTab"}
+                  onChange={(e) => setActiveTab(e.target.value)}
+                />
+                <div>Detail</div>
               </div>
             </label>
           </div>
@@ -42,6 +53,7 @@ function PlotContainer({ dfHeading }) {
           <DFRelativePlot dfHeading={dfHeading} />
         )}
         {activeTab === "absoluteTab" && <DFAbsolutePlot />}
+        {activeTab === "detailPlotTab" && <DFAbsolutePlot />}
       </div>
     </div>
   );
@@ -60,7 +72,6 @@ const styles = {
     display: "flex",
     width: "100%",
     justifyContent: "space-between",
-    alignItems: "center",
     // backgroundColor: "rgba(255, 255, 255, 0.5)",
     padding: "2px 4px",
   },
@@ -75,9 +86,10 @@ const styles = {
     display: "flex",
     height: "100%",
     width: "100%",
-    alignItems: "center",
+    // alignItems: "center",
+    // marginLeft: "50px",
     justifyContent: "center",
-    backgroundColor: "pink",
+    marginTop: "40px",
   },
 };
 

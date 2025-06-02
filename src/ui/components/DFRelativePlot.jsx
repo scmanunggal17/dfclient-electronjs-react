@@ -1,4 +1,4 @@
-import circleAngle from "./../assets/circle-angle.png";
+import relativeCircle from "./../assets/relative-circle.png";
 
 function DFRelativePlot({ dfHeading }) {
   return (
@@ -13,6 +13,7 @@ function DFRelativePlot({ dfHeading }) {
         >
           <div style={styles.arrow}></div>
         </div>
+        <div style={styles.angleText}>value</div>
       </div>
     </div>
   );
@@ -24,33 +25,48 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "black",
-    height: "280px",
-    width: "280px",
+    height: "300px",
+    width: "300px",
     borderRadius: "50%",
   },
   circle: {
     display: "flex",
-    width: "270px",
-    height: "270px",
+    width: "280px",
+    height: "280px",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: "50%",
-    backgroundImage: `url(${circleAngle})`,
+    backgroundImage: `url(${relativeCircle})`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
   },
   angle: {
     backgroundColor: "transparent",
-    height: "170px",
-    width: "170px",
+    height: "200px",
+    width: "200px",
     borderRadius: "50%",
   },
   arrow: {
     height: "50%",
-    width: "6px",
+    width: "10px",
     backgroundColor: "white",
     margin: "auto",
     borderRadius: "3px",
+  },
+  angleText: {
+    width: "70px",
+    height: "70px",
+    backgroundColor: "black",
+    position: "absolute",
+    borderRadius: "50%",
+    border: "2px solid white",
+    zIndex: 2,
+    display: "flex",
+    color: "yellow",
+    textAlign: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "18pt",
   },
 };
 
