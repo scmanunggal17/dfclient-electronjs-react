@@ -1,8 +1,17 @@
 function DFAbsolutePlot() {
   return (
-    <div>
-      <h2>Absolute Plot</h2>
-      <p>This is the absolute plot component.</p>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100%",
+        width: "100%",
+        color: "darkred",
+        backgroundColor: "whitegray",
+      }}
+    >
+      <h2>Sorry, this page currently under Development!</h2>
     </div>
   );
 }

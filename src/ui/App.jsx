@@ -19,7 +19,7 @@ function App() {
       console.log("start read compass");
       readCompass()
         .then((cmpsData) => {
-          setCmpsHeading(cmpsData.heading);
+          setCmpsHeading(Math.round(cmpsData.heading));
         })
         .catch((err) => {
           console.error(err);

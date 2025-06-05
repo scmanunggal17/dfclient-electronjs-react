@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 function CompassTab({ writeCmpsOffsetCfg, cmpsOffset, cmpsHeading }) {
   const cmpsOffsetRef = useRef(null);
 
-  console.log("cmpsHeading: ", cmpsHeading);
+  // console.log("cmpsHeading: ", cmpsHeading);
 
   return (
     <div style={styles.compassTab}>
