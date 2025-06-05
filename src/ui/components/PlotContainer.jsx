@@ -2,7 +2,7 @@ import { act, useState } from "react";
 import DFRelativePlot from "./DFRelativePlot";
 import DFAbsolutePlot from "./DFAbsolutePlot";
 
-function PlotContainer({ dfHeading }) {
+function PlotContainer({ dfHasData, dfHeading }) {
   const [activeTab, setActiveTab] = useState("relativeTab");
 
   return (
@@ -50,7 +50,7 @@ function PlotContainer({ dfHeading }) {
       </div>
       <div style={styles.plotContainer}>
         {activeTab === "relativeTab" && (
-          <DFRelativePlot dfHeading={dfHeading} />
+          <DFRelativePlot dfHasData={dfHasData} dfHeading={dfHeading} />
         )}
         {activeTab === "absoluteTab" && <DFAbsolutePlot />}
         {activeTab === "detailPlotTab" && <DFAbsolutePlot />}

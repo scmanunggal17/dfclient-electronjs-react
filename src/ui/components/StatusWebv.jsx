@@ -6,7 +6,7 @@ function StatusWebv() {
     <div style={styles.status}>
       <div
         style={{
-          padding: "4px 2px 0px 12px",
+          padding: "4px 2px 2px 12px",
           borderBottom: "2px solid gray",
         }}
       >
@@ -23,9 +23,10 @@ const styles = {
     backgroundColor: "whitesmoke",
   },
   webview: {
-    backgroundColor: "black",
+    backgroundColor: "whitesmoke",
     width: "100%",
     height: "100%",
+    padding: "8px 0px",
   },
 };
 

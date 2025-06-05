@@ -1,12 +1,13 @@
 import relativeCircle from "./../assets/relative-circle.png";
 
-function DFRelativePlot({ dfHeading }) {
+function DFRelativePlot({ dfHasData, dfHeading }) {
   return (
     <div style={styles.container}>
       <div style={styles.circle}>
         <div
           style={{
             ...styles.angle,
+            display: dfHasData ? "block" : "none",
             transform: `rotate(${dfHeading}deg)`,
             transition: "transform 0.2s ease",
           }}

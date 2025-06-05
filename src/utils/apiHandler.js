@@ -1,6 +1,6 @@
 let prevAntSpace = 0; //? is safe prev state necessary?
-// export const API_URL = "http://192.168.17.17:8087";
-export const API_URL = "http://localhost:3000";
+export const API_URL = "http://192.168.17.17:8087";
+// export const API_URL = "http://localhost:3000";
 
 export const setFreqApi = async (data) => {
   try {
@@ -134,7 +134,16 @@ export const readDF = async () => {
   }
 
   const resText = await response.text();
+  if (!resText || resText.trim() === "") {
+    throw new Error("DF data is empty");
+  }
+
   const dataArray = resText.split(",");
+
+  if (dataArray.length < 4) {
+    throw new Error("Incomplete DF data");
+  }
+
   const data = {
     time: dataArray[0].trim(),
     heading: dataArray[1].trim(),

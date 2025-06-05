@@ -10,6 +10,7 @@ function App() {
   const intervalFetchDF = useRef(null);
   const [cmpsHeading, setCmpsHeading] = useState(0);
   const [dfHeading, setDfHeading] = useState(0);
+  const [dfHasData, setDfHasData] = useState(false);
 
   function startFetchIntervalCmps() {
     if (intervalFetchCmps.current) return;
@@ -41,9 +42,11 @@ function App() {
       console.log("start read DF");
       readDF()
         .then((dfData) => {
+          setDfHasData(true);
           setDfHeading(dfData.heading);
         })
         .catch((err) => {
+          setDfHasData(false);
           console.error(err);
         });
     }, 1000);
@@ -70,7 +73,7 @@ function App() {
     <div style={styles.container}>
       <TopPanel />
       <StatusWebv />
-      <PlotContainer dfHeading={dfHeading} />
+      <PlotContainer dfHasData={dfHasData} dfHeading={dfHeading} />
       <ControlPanel cmpsHeading={cmpsHeading} />
     </div>
   );
