@@ -43,7 +43,7 @@ function App() {
       readDF()
         .then((dfData) => {
           setDfHasData(true);
-          setDfHeading(dfData.heading);
+          setDfHeading(Number(dfData.heading));
         })
         .catch((err) => {
           setDfHasData(false);
@@ -73,7 +73,11 @@ function App() {
     <div style={styles.container}>
       <TopPanel />
       <StatusWebv />
-      <PlotContainer dfHasData={dfHasData} dfHeading={dfHeading} />
+      <PlotContainer
+        dfHasData={dfHasData}
+        dfHeading={dfHeading}
+        cmpsHeading={cmpsHeading}
+      />
       <ControlPanel cmpsHeading={cmpsHeading} />
     </div>
   );

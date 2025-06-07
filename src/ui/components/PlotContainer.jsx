@@ -1,8 +1,9 @@
 import { act, useState } from "react";
 import DFRelativePlot from "./DFRelativePlot";
 import DFAbsolutePlot from "./DFAbsolutePlot";
+import DFDetailPlot from "./DFDetailPlot";
 
-function PlotContainer({ dfHasData, dfHeading }) {
+function PlotContainer({ dfHasData, dfHeading, cmpsHeading }) {
   const [activeTab, setActiveTab] = useState("relativeTab");
 
   return (
@@ -52,8 +53,14 @@ function PlotContainer({ dfHasData, dfHeading }) {
         {activeTab === "relativeTab" && (
           <DFRelativePlot dfHasData={dfHasData} dfHeading={dfHeading} />
         )}
-        {activeTab === "absoluteTab" && <DFAbsolutePlot />}
-        {activeTab === "detailPlotTab" && <DFAbsolutePlot />}
+        {activeTab === "absoluteTab" && (
+          <DFAbsolutePlot
+            dfHasData={dfHasData}
+            dfHeading={dfHeading}
+            cmpsHeading={cmpsHeading}
+          />
+        )}
+        {activeTab === "detailPlotTab" && <DFDetailPlot />}
       </div>
     </div>
   );
