@@ -11,3 +11,4 @@ build with reactjs, electronjs, & vite
 - Status view masih sisa
 - north compass view
 - Detail view
+- cek hasil DF apakah terbalik atau tidak (format Polar atau compass?)
