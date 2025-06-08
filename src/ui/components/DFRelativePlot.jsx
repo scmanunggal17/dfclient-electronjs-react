@@ -14,7 +14,7 @@ function DFRelativePlot({ dfHasData, dfHeading }) {
         >
           <div style={styles.arrow}></div>
         </div>
-        <div style={styles.angleText}>{dfHeading}</div>
+        <div style={styles.angleText}>{dfHasData ? dfHeading : "-"}</div>
       </div>
     </div>
   );

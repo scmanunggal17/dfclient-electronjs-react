@@ -15,7 +15,7 @@ function DFAbsolutePlot({ dfHasData, dfHeading, cmpsHeading }) {
         >
           <div style={styles.arrow}></div>
         </div>
-        <div style={styles.angleText}>{dfAbsValue}</div>
+        <div style={styles.angleText}>{dfHasData ? dfAbsValue : "-"}</div>
       </div>
     </div>
   );
