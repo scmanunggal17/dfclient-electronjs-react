@@ -9,17 +9,21 @@ function App() {
   const intervalFetchCmps = useRef(null);
   const intervalFetchDF = useRef(null);
   const [cmpsHeading, setCmpsHeading] = useState(0);
+  const [cmpsOffsetCor, setCmpsOffsetCor] = useState(0);
+  const cmpsOffsetCorRef = useRef(0);
   const [dfHeading, setDfHeading] = useState(0);
   const [dfHasData, setDfHasData] = useState(false);
 
   function startFetchIntervalCmps() {
     if (intervalFetchCmps.current) return;
+    console.log("start read compass");
 
     intervalFetchCmps.current = setInterval(() => {
-      console.log("start read compass");
       readCompass()
         .then((cmpsData) => {
-          setCmpsHeading(Math.round(cmpsData.heading));
+          const cmpsHead =
+            Math.round(cmpsData.heading) - cmpsOffsetCorRef.current;
+          setCmpsHeading(cmpsHead);
         })
         .catch((err) => {
           console.error(err);
@@ -37,9 +41,8 @@ function App() {
 
   function startFetchIntervalDF() {
     if (intervalFetchDF.current) return;
-
+    console.log("start read DF");
     intervalFetchDF.current = setInterval(() => {
-      console.log("start read DF");
       readDF()
         .then((dfData) => {
           setDfHasData(true);
@@ -66,11 +69,16 @@ function App() {
     return () => {
       stopFetchIntervalCmps();
       stopFetchIntervalDF();
-    }; // Cleanup function to stop intervals on unmount
+    };
   }, []);
+
+  useEffect(() => {
+    cmpsOffsetCorRef.current = cmpsOffsetCor;
+  }, [cmpsOffsetCor]);
 
   return (
     <div style={styles.container}>
+      <div>ini: {cmpsOffsetCor}</div>
       <TopPanel />
       <StatusWebv />
       <PlotContainer
@@ -78,7 +86,11 @@ function App() {
         dfHeading={dfHeading}
         cmpsHeading={cmpsHeading}
       />
-      <ControlPanel cmpsHeading={cmpsHeading} />
+      <ControlPanel
+        cmpsHeading={cmpsHeading}
+        cmpsOffsetCor={cmpsOffsetCor}
+        setCmpsOffsetCor={setCmpsOffsetCor}
+      />
     </div>
   );
 }

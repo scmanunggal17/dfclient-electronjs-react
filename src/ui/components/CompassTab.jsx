@@ -1,9 +1,23 @@
 import { useEffect, useRef } from "react";
 
-function CompassTab({ writeCmpsOffsetCfg, cmpsOffset, cmpsHeading }) {
+function CompassTab({
+  writeCmpsOffsetCfg,
+  cmpsOffsetCor,
+  setCmpsOffsetCor,
+  cmpsHeading,
+}) {
   const cmpsOffsetRef = useRef(null);
 
-  // console.log("cmpsHeading: ", cmpsHeading);
+  function setCmpsOffsetCorrection() {
+    const newOffsetCor = cmpsOffsetRef.current.value;
+
+    if (newOffsetCor === "") {
+      alert("Please enter a valid correction value.");
+      return;
+    }
+
+    setCmpsOffsetCor(Number(newOffsetCor));
+  }
 
   return (
     <div style={styles.compassTab}>
@@ -32,10 +46,12 @@ function CompassTab({ writeCmpsOffsetCfg, cmpsOffset, cmpsHeading }) {
           <input
             style={styles.cmpsCorrInput}
             type="number"
-            defaultValue={cmpsOffset}
+            defaultValue={cmpsOffsetCor}
             ref={cmpsOffsetRef}
           />
-          <button style={styles.cmpsSetBtn}>Set</button>
+          <button style={styles.cmpsSetBtn} onClick={setCmpsOffsetCorrection}>
+            Set
+          </button>
           <button style={styles.cmpsSetBtn}>Save Config</button>
         </div>
       </div>
