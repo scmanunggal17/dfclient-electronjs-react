@@ -10,7 +10,7 @@ function DFAbsolutePlot({ dfHasData, dfHeading, cmpsHeading }) {
             ...styles.angle,
             display: dfHasData ? "block" : "none",
             transform: `rotate(${dfAbsValue}deg)`,
-            transition: "transform 0.2s ease",
+            // transition: "transform 0.2s ease",
           }}
         >
           <div style={styles.arrow}></div>

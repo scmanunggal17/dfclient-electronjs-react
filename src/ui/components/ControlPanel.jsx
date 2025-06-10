@@ -6,7 +6,7 @@ import CompassTab from "./CompassTab";
 import LocationTab from "./LocationTab";
 import OptionTab from "./OptionTab";
 
-function ControlPanel({ cmpsHeading }) {
+function ControlPanel({ cmpsHeading, cmpsOffsetCor, setCmpsOffsetCor }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -78,6 +78,8 @@ function ControlPanel({ cmpsHeading }) {
           compassOffset: jsonData.compassOffset,
         }));
 
+        // setCmpsOffsetCor(Number(jsonData.compassOffset));
+
         console.log("Read saved coords: ", JSON.stringify(jsonData));
       })
       .catch((err) => {
@@ -146,7 +148,8 @@ function ControlPanel({ cmpsHeading }) {
         {activeTab === "Compass" && (
           <CompassTab
             writeCmpsOffsetCfg={writeCmpsOffsetCfg}
-            cmpsOffset={savedCoord.compassOffset}
+            cmpsOffsetCor={cmpsOffsetCor}
+            setCmpsOffsetCor={setCmpsOffsetCor}
             cmpsHeading={cmpsHeading}
           />
         )}
