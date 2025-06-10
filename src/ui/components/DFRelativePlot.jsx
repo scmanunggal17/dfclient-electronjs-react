@@ -9,7 +9,7 @@ function DFRelativePlot({ dfHasData, dfHeading }) {
             ...styles.angle,
             display: dfHasData ? "block" : "none",
             transform: `rotate(${dfHeading}deg)`,
-            transition: "transform 0.2s ease",
+            // transition: "transform 0.1s ease",
           }}
         >
           <div style={styles.arrow}></div>
