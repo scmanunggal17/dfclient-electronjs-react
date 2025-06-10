@@ -78,7 +78,6 @@ function App() {
 
   return (
     <div style={styles.container}>
-      <div>ini: {cmpsOffsetCor}</div>
       <TopPanel />
       <StatusWebv />
       <PlotContainer
