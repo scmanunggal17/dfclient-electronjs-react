@@ -8,6 +8,7 @@ import PlotContainer from "./components/PlotContainer";
 function App() {
   const intervalFetchCmps = useRef(null);
   const intervalFetchDF = useRef(null);
+  const timeStamp = useRef(0);
   const [cmpsHeading, setCmpsHeading] = useState(0);
   const [cmpsOffsetCor, setCmpsOffsetCor] = useState(0);
   const cmpsOffsetCorRef = useRef(0);
@@ -39,19 +40,51 @@ function App() {
     }
   }
 
-  function startFetchIntervalDF() {
+  function startFetchIntervalDF2() {
     if (intervalFetchDF.current) return;
     console.log("start read DF");
     intervalFetchDF.current = setInterval(() => {
       readDF()
         .then((dfData) => {
-          setDfHasData(true);
-          setDfHeading(Number(dfData.heading));
+          if (timeStamp.current !== dfData.time) {
+            const df = 360 - parseFloat(dfData.heading);
+
+            setDfHasData(true);
+            setDfHeading(parseInt(df) % 360);
+            timeStamp.current = dfData.time;
+          } else {
+            setDfHasData(false);
+          }
         })
         .catch((err) => {
           setDfHasData(false);
           console.error(err);
         });
+    }, 1000);
+  }
+
+  function startFetchIntervalDF() {
+    if (intervalFetchDF.current) return;
+
+    console.log("Start reading DF");
+
+    intervalFetchDF.current = setInterval(async () => {
+      try {
+        const dfData = await readDF();
+        const isNewData = timeStamp.current !== dfData.time;
+
+        if (isNewData) {
+          const heading = (360 - parseFloat(dfData.heading)) % 360;
+          setDfHasData(true);
+          setDfHeading(Math.round(heading));
+          timeStamp.current = dfData.time;
+        } else {
+          setDfHasData(false);
+        }
+      } catch (error) {
+        console.error(error);
+        setDfHasData(false);
+      }
     }, 1000);
   }
 
