@@ -6,7 +6,7 @@ build with reactjs, electronjs, & vite
 
 - compass value diganti nilai bulat saja, OK
 - compass correction masih belum fungsi, OK
-- save config di compass masih belum fungsi,
+- save config di compass masih belum fungsi, otw
 - hilangkan jarum & ganti nilai angle ke --- jika nilai df kosong, OK
 - Status view masih sisa, OK
 - north compass view
