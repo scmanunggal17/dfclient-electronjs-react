@@ -13,3 +13,4 @@ build with reactjs, electronjs, & vite
 - Detail view
 - cek hasil DF apakah terbalik atau tidak (format Polar atau compass?)
 - top button
+- setantenna OK
