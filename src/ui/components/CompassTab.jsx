@@ -12,11 +12,23 @@ function CompassTab({
     const newOffsetCor = cmpsOffsetRef.current.value;
 
     if (newOffsetCor === "") {
-      alert("Please enter a valid correction value.");
+      //ganti ke error
+      // alert("Please enter a valid correction value.");
       return;
     }
 
     setCmpsOffsetCor(Number(newOffsetCor));
+  }
+
+  function saveCmpsOffsetCfg() {
+    const newOffsetCor = cmpsOffsetRef.current.value;
+
+    if (newOffsetCor === "") {
+      // alert("Please enter a valid correction value.");
+      return;
+    }
+
+    writeCmpsOffsetCfg(Number(newOffsetCor));
   }
 
   return (
@@ -52,7 +64,9 @@ function CompassTab({
           <button style={styles.cmpsSetBtn} onClick={setCmpsOffsetCorrection}>
             Set
           </button>
-          <button style={styles.cmpsSetBtn}>Save Config</button>
+          <button style={styles.cmpsSetBtn} onClick={saveCmpsOffsetCfg}>
+            Save Config
+          </button>
         </div>
       </div>
     </div>

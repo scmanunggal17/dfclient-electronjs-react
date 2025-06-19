@@ -78,7 +78,7 @@ function ControlPanel({ cmpsHeading, cmpsOffsetCor, setCmpsOffsetCor }) {
           compassOffset: jsonData.compassOffset,
         }));
 
-        // setCmpsOffsetCor(Number(jsonData.compassOffset));
+        setCmpsOffsetCor(Number(jsonData.compassOffset));
 
         console.log("Read saved coords: ", JSON.stringify(jsonData));
       })
@@ -93,6 +93,22 @@ function ControlPanel({ cmpsHeading, cmpsOffsetCor, setCmpsOffsetCor }) {
       ...prev,
       compassOffset: offsetValue,
     }));
+
+    const dataToSave = {
+      ...savedCoord,
+      compassOffset: offsetValue,
+    };
+    console.log(dataToSave);
+
+    const strDataToSave = JSON.stringify(dataToSave, null, 2);
+
+    window.NodeFn.writeFile("data-coord.json", strDataToSave, "utf8")
+      .then(() => {
+        console.log("write success");
+      })
+      .catch((err) => {
+        console.error("write error", err);
+      });
   }
 
   function writeSavedCoord(latDms, lonDms, zone, easting, northing, co) {
