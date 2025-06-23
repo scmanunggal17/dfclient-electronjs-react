@@ -11,7 +11,7 @@ build with reactjs, electronjs, & vite
 - north compass view OK
 - setantenna OK
 - cek hasil DF apakah terbalik atau tidak (format Polar atau compass?) OK (terbalik)
-- save config di compass masih belum fungsi, OK, masih kurang peringatan jika format salah
+- save config compass, OK, masih kurang peringatan jika format salah
 - ganti default value saved coord dengan format penulisan yang benar, tambah peringatan jika format salah saat menyimpan
 - Detail view
 - top menu: Refresh, left, right, bottom
