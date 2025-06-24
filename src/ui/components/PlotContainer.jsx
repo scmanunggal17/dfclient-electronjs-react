@@ -3,7 +3,7 @@ import DFRelativePlot from "./DFRelativePlot";
 import DFAbsolutePlot from "./DFAbsolutePlot";
 import DFDetailPlot from "./DFDetailPlot";
 
-function PlotContainer({ dfHasData, dfHeading, cmpsHeading }) {
+function PlotContainer({ dfHasData, dfHeading, cmpsHeading, dfPolarData }) {
   const [activeTab, setActiveTab] = useState("relativeTab");
 
   return (
@@ -60,7 +60,9 @@ function PlotContainer({ dfHasData, dfHeading, cmpsHeading }) {
             cmpsHeading={cmpsHeading}
           />
         )}
-        {activeTab === "detailPlotTab" && <DFDetailPlot />}
+        {activeTab === "detailPlotTab" && (
+          <DFDetailPlot dfPolarData={dfPolarData} />
+        )}
       </div>
     </div>
   );

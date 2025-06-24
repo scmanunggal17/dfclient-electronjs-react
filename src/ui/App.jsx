@@ -14,6 +14,7 @@ function App() {
   const cmpsOffsetCorRef = useRef(0);
   const [dfHeading, setDfHeading] = useState(0);
   const [dfHasData, setDfHasData] = useState(false);
+  const [polarData, setPolarData] = useState([]);
 
   function startFetchIntervalCmps() {
     if (intervalFetchCmps.current) return;
@@ -40,29 +41,6 @@ function App() {
     }
   }
 
-  function startFetchIntervalDF2() {
-    if (intervalFetchDF.current) return;
-    console.log("start read DF");
-    intervalFetchDF.current = setInterval(() => {
-      readDF()
-        .then((dfData) => {
-          if (timeStamp.current !== dfData.time) {
-            const df = 360 - parseFloat(dfData.heading);
-
-            setDfHasData(true);
-            setDfHeading(parseInt(df) % 360);
-            timeStamp.current = dfData.time;
-          } else {
-            setDfHasData(false);
-          }
-        })
-        .catch((err) => {
-          setDfHasData(false);
-          console.error(err);
-        });
-    }, 1000);
-  }
-
   function startFetchIntervalDF() {
     if (intervalFetchDF.current) return;
 
@@ -77,6 +55,7 @@ function App() {
           const heading = (360 - parseFloat(dfData.heading)) % 360;
           setDfHasData(true);
           setDfHeading(Math.round(heading));
+          setPolarData(dfData.polar);
           timeStamp.current = dfData.time;
         } else {
           setDfHasData(false);
@@ -117,6 +96,7 @@ function App() {
         dfHasData={dfHasData}
         dfHeading={dfHeading}
         cmpsHeading={cmpsHeading}
+        dfPolarData={polarData}
       />
       <ControlPanel
         cmpsHeading={cmpsHeading}
