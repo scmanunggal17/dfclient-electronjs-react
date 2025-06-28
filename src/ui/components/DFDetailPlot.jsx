@@ -1,21 +1,19 @@
 import { Chart as ChartJS } from "chart.js/auto";
+import { color } from "chart.js/helpers";
 import { Radar } from "react-chartjs-2";
 
 function DFDetailPlot({ dfPolarData }) {
-  console.log("DFDetailPlot, dfPolarData: ", dfPolarData);
-
   const labels = dfPolarData.map(() => "");
 
   const data = {
     labels,
     datasets: [
       {
-        label: "DF Polar Data",
+        label: "dB",
         data: dfPolarData,
-        backgroundColor: "rgba(65, 45, 243, 0.2)", // semi-transparent fill
-        borderColor: "yellow", // line color
+        backgroundColor: "rgba(0, 50, 255, 0.3)", // semi-transparent fill
         borderWidth: 0,
-        pointBackgroundColor: "rgb(55, 22, 201)",
+        pointBackgroundColor: "rgba(0, 50, 255, 1)", // color of the points
         pointRadius: 1, // size of the points
       },
     ],
@@ -38,6 +36,8 @@ function DFDetailPlot({ dfPolarData }) {
         },
         grid: {
           circular: true,
+          color: "white",
+          lineWidth: 1, // Width of the grid lines
         },
         ticks: {
           display: false, // Hide numeric scale ticks
@@ -56,15 +56,22 @@ function DFDetailPlot({ dfPolarData }) {
         justifyContent: "center",
         height: "100%",
         width: "100%",
+        borderRadius: "50px",
         color: "darkred",
         backgroundColor: "whitesmoke",
       }}
     >
-      <Radar
-        style={{ backgroundColor: "yellow", boarderRadius: "50px" }}
-        data={data}
-        options={options}
-      />
+      <div
+        style={{
+          width: "300px",
+          height: "300px",
+          borderRadius: "50%",
+          overflow: "hidden",
+          backgroundColor: "black",
+        }}
+      >
+        <Radar data={data} options={options} />
+      </div>
     </div>
   );
 }
