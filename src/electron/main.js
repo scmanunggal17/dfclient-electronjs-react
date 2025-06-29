@@ -50,3 +50,10 @@ ipcMain.on("close-app", () => {
     app.quit();
   }, 3000);
 });
+
+ipcMain.on("reload-window", () => {
+  const win = BrowserWindow.getFocusedWindow();
+  if (win) {
+    win.reload();
+  }
+});

@@ -1,12 +1,23 @@
 import btnAlignRight from "./../assets/btn-align-right.png";
 import btnAlignBottom from "./../assets/btn-align-bottom.png";
 import btnAlignLeft from "./../assets/btn-align-left.png";
-import btnRefresh from "./../assets/icons8-refresh-60.png"
+import btnRefresh from "./../assets/icons8-refresh-60.png";
 
 function TopPanel() {
+  const handleHardRefresh = () => {
+    if (window.NodeFn?.reloadWindow) {
+      window.NodeFn.reloadWindow();
+    } else {
+      console.warn("reloadWindow function is not available");
+    }
+  };
+
   return (
     <div style={styles.topPanel}>
-      <button style={{...styles.topButton, ...styles.btnRefresh}}></button>
+      <button
+        style={{ ...styles.topButton, ...styles.btnRefresh }}
+        onClick={handleHardRefresh}
+      ></button>
       <button style={{ ...styles.topButton, ...styles.btnAlignLeft }}></button>
       <button
         style={{ ...styles.topButton, ...styles.btnAlignBottom }}
@@ -43,9 +54,9 @@ const styles = {
   btnAlignLeft: {
     backgroundImage: `url(${btnAlignLeft})`,
   },
-  btnRefresh:{
+  btnRefresh: {
     backgroundImage: `url(${btnRefresh})`,
-  }
+  },
 };
 
 export default TopPanel;
