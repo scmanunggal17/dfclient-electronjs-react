@@ -71,16 +71,25 @@ function Location({ writeSavedCoord, savedCoord }) {
 
     if (!lat || !lon) {
       setErrMsg("Field tidak boleh kosong");
+      setTimeout(() => {
+        setErrMsg("");
+      }, 2000);
       return;
     }
 
     if (!isDmsRegexMatch(lat)) {
       setErrMsg("Format latitude salah");
+      setTimeout(() => {
+        setErrMsg("");
+      }, 2000);
       return;
     }
 
     if (!isDmsRegexMatch(lon)) {
       setErrMsg("Format longitude salah");
+      setTimeout(() => {
+        setErrMsg("");
+      }, 2000);
       return;
     }
 
@@ -107,85 +116,87 @@ function Location({ writeSavedCoord, savedCoord }) {
 
   return (
     <div style={styles.locationTab}>
-      <div style={{ borderBottom: "2px solid gray" }}>
-        <span style={{ marginLeft: "8px", fontWeight: "500" }}>Compass</span>
-      </div>
       {errMsg ? (
         <div
           style={{
-            height: "50%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "lightcoral",
+            borderBottom: "2px solid gray",
+            backgroundColor: "darkred",
+            color: "white",
+            textAlign: "center",
+            fontWeight: "600",
           }}
         >
-          {errMsg}
+          Error, {errMsg}
         </div>
       ) : (
-        <div style={styles.locationContent}>
-          <div style={styles.latlongPanel}>
-            <div style={styles.latlongField}>
-              <div>Latitude:</div>
-              <input
-                style={styles.latlongInput}
-                type="text"
-                defaultValue={savedCoord.latDms}
-                ref={latRef}
-              />
-            </div>
-            <div style={styles.latlongField}>
-              <div>Longitude:</div>
-              <input
-                style={styles.latlongInput}
-                type="text"
-                defaultValue={savedCoord.lonDms}
-                ref={lonRef}
-              />
-            </div>
+        <div style={{ borderBottom: "2px solid gray" }}>
+          <span style={{ marginLeft: "8px", fontWeight: "500" }}>
+            Locations
+          </span>
+        </div>
+      )}
+      <div style={styles.locationContent}>
+        <div style={styles.latlongPanel}>
+          <div style={styles.latlongField}>
+            <div>Latitude:</div>
+            <input
+              style={styles.latlongInput}
+              type="text"
+              defaultValue={savedCoord.latDms}
+              ref={latRef}
+            />
           </div>
-          <div style={styles.utmPanel}>
-            <div>
-              <div style={styles.utmField}>
-                <div style={styles.utmLabel}>Zone:</div>
-                <input
-                  style={styles.utmInput}
-                  type="text"
-                  defaultValue={savedCoord.zone}
-                  ref={zoneRef}
-                />
-              </div>
-              <div style={styles.utmField}>
-                <div style={styles.utmLabel}>Easting:</div>
-                <input
-                  style={styles.utmInput}
-                  type="text"
-                  defaultValue={savedCoord.easting}
-                  ref={eastingRef}
-                />
-              </div>
-              <div style={styles.utmField}>
-                <div style={styles.utmLabel}>Northing:</div>
-                <input
-                  style={styles.utmInput}
-                  type="text"
-                  defaultValue={savedCoord.northing}
-                  ref={northingRef}
-                />
-              </div>
-              <div style={styles.utmField}>
-                <div style={styles.utmLabel}>CO:</div>
-                <input
-                  style={styles.utmInput}
-                  type="text"
-                  defaultValue={savedCoord.co}
-                  ref={coRef}
-                />
-              </div>
+          <div style={styles.latlongField}>
+            <div>Longitude:</div>
+            <input
+              style={styles.latlongInput}
+              type="text"
+              defaultValue={savedCoord.lonDms}
+              ref={lonRef}
+            />
+          </div>
+        </div>
+        <div style={styles.utmPanel}>
+          <div>
+            <div style={styles.utmField}>
+              <div style={styles.utmLabel}>Zone:</div>
+              <input
+                style={styles.utmInput}
+                type="text"
+                defaultValue={savedCoord.zone}
+                ref={zoneRef}
+              />
+            </div>
+            <div style={styles.utmField}>
+              <div style={styles.utmLabel}>Easting:</div>
+              <input
+                style={styles.utmInput}
+                type="text"
+                defaultValue={savedCoord.easting}
+                ref={eastingRef}
+              />
+            </div>
+            <div style={styles.utmField}>
+              <div style={styles.utmLabel}>Northing:</div>
+              <input
+                style={styles.utmInput}
+                type="text"
+                defaultValue={savedCoord.northing}
+                ref={northingRef}
+              />
+            </div>
+            <div style={styles.utmField}>
+              <div style={styles.utmLabel}>CO:</div>
+              <input
+                style={styles.utmInput}
+                type="text"
+                defaultValue={savedCoord.co}
+                ref={coRef}
+              />
             </div>
           </div>
         </div>
-      )}
+      </div>
       <div style={styles.buttonPanel}>
         <button
           style={styles.actButton}
