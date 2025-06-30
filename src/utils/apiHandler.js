@@ -138,7 +138,7 @@ export const readDF = async () => {
     throw new Error("DF data is empty");
   }
 
-  const dataArray = resText.split(",").map(v => v.trim());
+  const dataArray = resText.split(",").map((v) => v.trim());
 
   if (dataArray.length < 377) {
     throw new Error("Incomplete DF data");
