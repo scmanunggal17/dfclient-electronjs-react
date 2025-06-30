@@ -42,7 +42,7 @@ function ControlPanel({ cmpsHeading, cmpsOffsetCor, setCmpsOffsetCor }) {
       setUnitName(data.station_id);
     } catch (error) {
       console.error("Error fetching initial data on start: ", error);
-      setError(error.message || "Unknown error");
+      setError("Error: " + (error.message || "Unknown error"));
     } finally {
       setLoading(false);
     }
@@ -87,7 +87,6 @@ function ControlPanel({ cmpsHeading, cmpsOffsetCor, setCmpsOffsetCor }) {
       });
   }
 
-  //correct this
   function writeCmpsOffsetCfg(offsetValue) {
     setSavedCoord((prev) => ({
       ...prev,
@@ -151,7 +150,14 @@ function ControlPanel({ cmpsHeading, cmpsOffsetCor, setCmpsOffsetCor }) {
           (loading ? (
             <div>Loading...</div>
           ) : error ? (
-            <div style={{ color: "red" }}>Error: {error}</div>
+            <div style={{ color: "red" }}>
+              <div>{error}</div>
+              <div>Periksa kabel & koneksi Unit DF</div>
+              <div>
+                kemudian klik Refresh atau <br />
+                tutup & buka kembali aplikasi
+              </div>
+            </div>
           ) : (
             <SetFreqTab
               setFreqGain={setFreqGain}
