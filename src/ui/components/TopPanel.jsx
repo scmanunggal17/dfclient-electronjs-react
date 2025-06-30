@@ -12,13 +12,24 @@ function TopPanel() {
     }
   };
 
+  const handleMoveToLeft = () => {
+    if (window.NodeFn?.moveWindow) {
+      window.NodeFn.moveWindow(0, 0);
+    } else {
+      console.warn("moveWindow function is not available");
+    }
+  };
+
   return (
     <div style={styles.topPanel}>
       <button
         style={{ ...styles.topButton, ...styles.btnRefresh }}
         onClick={handleHardRefresh}
       ></button>
-      <button style={{ ...styles.topButton, ...styles.btnAlignLeft }}></button>
+      <button
+        style={{ ...styles.topButton, ...styles.btnAlignLeft }}
+        onClick={handleMoveToLeft}
+      ></button>
       {/* <button
         style={{ ...styles.topButton, ...styles.btnAlignBottom }}
       ></button> */}

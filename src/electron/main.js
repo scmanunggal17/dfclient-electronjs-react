@@ -26,7 +26,7 @@ const createWindow = () => {
   });
 
   win.loadFile("dist-react/index.html");
-  console.log("window Height: " + height);
+  // console.log("window Height: " + height);
 };
 
 app.whenReady().then(() => {
@@ -55,5 +55,17 @@ ipcMain.on("reload-window", () => {
   const win = BrowserWindow.getFocusedWindow();
   if (win) {
     win.reload();
+  }
+});
+
+ipcMain.on("move-window", (event, x, y) => {
+  const win = BrowserWindow.getFocusedWindow();
+  if (win) {
+    win.setBounds({
+      x: x,
+      y: y,
+      width: win.getBounds().width,
+      height: win.getBounds().height,
+    });
   }
 });

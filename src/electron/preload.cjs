@@ -49,4 +49,5 @@ contextBridge.exposeInMainWorld("NodeFn", {
     });
   },
   reloadWindow: () => ipcRenderer.send("reload-window"),
+  moveWindow: (x, y) => ipcRenderer.send("move-window", x, y),
 });
