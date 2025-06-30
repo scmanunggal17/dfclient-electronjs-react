@@ -32,7 +32,7 @@ function OptionTab({ setUnitName, unitName }) {
       setErrMsg("Unit Name harus diisi");
       setTimeout(() => {
         setErrMsg("");
-      }, 3000);
+      }, 2000);
       return;
     }
 
