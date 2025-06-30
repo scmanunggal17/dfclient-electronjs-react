@@ -14,7 +14,15 @@ function TopPanel() {
 
   const handleMoveToLeft = () => {
     if (window.NodeFn?.moveWindow) {
-      window.NodeFn.moveWindow(0, 0);
+      window.NodeFn.moveWindow("left");
+    } else {
+      console.warn("moveWindow function is not available");
+    }
+  };
+
+  const handleMoveToRight = () => {
+    if (window.NodeFn?.moveWindow) {
+      window.NodeFn.moveWindow("right");
     } else {
       console.warn("moveWindow function is not available");
     }
@@ -33,7 +41,10 @@ function TopPanel() {
       {/* <button
         style={{ ...styles.topButton, ...styles.btnAlignBottom }}
       ></button> */}
-      <button style={{ ...styles.topButton, ...styles.btnAlignRight }}></button>
+      <button
+        style={{ ...styles.topButton, ...styles.btnAlignRight }}
+        onClick={handleMoveToRight}
+      ></button>
     </div>
   );
 }

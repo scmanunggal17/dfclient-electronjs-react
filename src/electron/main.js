@@ -58,12 +58,18 @@ ipcMain.on("reload-window", () => {
   }
 });
 
-ipcMain.on("move-window", (event, x, y) => {
+ipcMain.on("move-window", (event, side) => {
+  let posX = 0;
+  if (side === "left") {
+    posX = 0;
+  } else if (side === "right") {
+    posX = screen.getPrimaryDisplay().workAreaSize.width - 400;
+  }
   const win = BrowserWindow.getFocusedWindow();
   if (win) {
     win.setBounds({
-      x: x,
-      y: y,
+      x: posX,
+      y: 0,
       width: win.getBounds().width,
       height: win.getBounds().height,
     });
