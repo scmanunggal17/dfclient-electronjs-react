@@ -19,9 +19,9 @@ function TopPanel() {
         onClick={handleHardRefresh}
       ></button>
       <button style={{ ...styles.topButton, ...styles.btnAlignLeft }}></button>
-      <button
+      {/* <button
         style={{ ...styles.topButton, ...styles.btnAlignBottom }}
-      ></button>
+      ></button> */}
       <button style={{ ...styles.topButton, ...styles.btnAlignRight }}></button>
     </div>
   );
