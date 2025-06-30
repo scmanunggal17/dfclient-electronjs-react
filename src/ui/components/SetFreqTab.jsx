@@ -6,7 +6,7 @@ function SetFreqTab({ setFreqGain, freq, gain }) {
   const freqRef = useRef(null);
   const gainRef = useRef(null);
 
-  function handleApply() {
+  const handleApply = () => {
     const newFreq = freqRef.current.value;
     const newGain = gainRef.current.value;
 
@@ -28,7 +28,7 @@ function SetFreqTab({ setFreqGain, freq, gain }) {
 
     setErrMsg("");
     setFreqGain(newFreq, newGain);
-  }
+  };
 
   return (
     <div style={styles.setFreqTab}>

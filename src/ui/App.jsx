@@ -16,7 +16,7 @@ function App() {
   const [dfHasData, setDfHasData] = useState(false);
   const [polarData, setPolarData] = useState([]);
 
-  function startFetchIntervalCmps() {
+  const startFetchIntervalCmps = () => {
     if (intervalFetchCmps.current) return;
     console.log("start read compass");
 
@@ -31,17 +31,17 @@ function App() {
           console.error(err);
         });
     }, 1000);
-  }
+  };
 
-  function stopFetchIntervalCmps() {
+  const stopFetchIntervalCmps = () => {
     if (intervalFetchCmps.current) {
       clearInterval(intervalFetchCmps.current);
       intervalFetchCmps.current = null;
       console.log("stop read compass");
     }
-  }
+  };
 
-  function startFetchIntervalDF() {
+  const startFetchIntervalDF = () => {
     if (intervalFetchDF.current) return;
 
     console.log("Start reading DF");
@@ -65,15 +65,15 @@ function App() {
         setDfHasData(false);
       }
     }, 1000);
-  }
+  };
 
-  function stopFetchIntervalDF() {
+  const stopFetchIntervalDF = () => {
     if (intervalFetchDF.current) {
       clearInterval(intervalFetchDF.current);
       intervalFetchDF.current = null;
       console.log("stop read DF");
     }
-  }
+  };
 
   useEffect(() => {
     startFetchIntervalCmps();

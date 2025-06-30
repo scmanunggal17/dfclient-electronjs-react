@@ -31,7 +31,7 @@ function ControlPanel({ cmpsHeading, cmpsOffsetCor, setCmpsOffsetCor }) {
     readSavedCoords();
   }, []);
 
-  async function fetchInitData() {
+  const fetchInitData = async () => {
     setLoading(true);
     setError(null);
 
@@ -46,9 +46,9 @@ function ControlPanel({ cmpsHeading, cmpsOffsetCor, setCmpsOffsetCor }) {
     } finally {
       setLoading(false);
     }
-  }
+  };
 
-  function setFreqGain(newFreq, newGain) {
+  const setFreqGain = (newFreq, newGain) => {
     setFreq(newFreq);
     setGain(newGain);
 
@@ -61,9 +61,9 @@ function ControlPanel({ cmpsHeading, cmpsOffsetCor, setCmpsOffsetCor }) {
       ant_spacing_meters: antSpace,
     };
     setFreqApi(data);
-  }
+  };
 
-  function readSavedCoords() {
+  const readSavedCoords = () => {
     window.NodeFn.readFile("data-coord.json", "utf8")
       .then((data) => {
         const jsonData = JSON.parse(data);
@@ -85,9 +85,9 @@ function ControlPanel({ cmpsHeading, cmpsOffsetCor, setCmpsOffsetCor }) {
       .catch((err) => {
         console.error(err);
       });
-  }
+  };
 
-  function writeCmpsOffsetCfg(offsetValue) {
+  const writeCmpsOffsetCfg = (offsetValue) => {
     setSavedCoord((prev) => ({
       ...prev,
       compassOffset: offsetValue,
@@ -108,9 +108,9 @@ function ControlPanel({ cmpsHeading, cmpsOffsetCor, setCmpsOffsetCor }) {
       .catch((err) => {
         console.error("write error", err);
       });
-  }
+  };
 
-  function writeSavedCoord(latDms, lonDms, zone, easting, northing, co) {
+  const writeSavedCoord = (latDms, lonDms, zone, easting, northing, co) => {
     setSavedCoord((prev) => ({
       ...prev,
       latDms: latDms,
@@ -141,7 +141,7 @@ function ControlPanel({ cmpsHeading, cmpsOffsetCor, setCmpsOffsetCor }) {
       .catch((err) => {
         console.error("write error", err);
       });
-  }
+  };
 
   return (
     <div style={styles.container}>

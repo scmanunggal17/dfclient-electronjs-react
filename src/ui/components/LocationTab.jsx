@@ -21,7 +21,7 @@ function Location({ writeSavedCoord, savedCoord }) {
 
   console.log("location tab loaded");
 
-  function saveCoord() {
+  const saveCoord = () => {
     const newLat = latRef.current.value;
     const newLon = lonRef.current.value;
     const newZone = zoneRef.current.value;
@@ -30,9 +30,9 @@ function Location({ writeSavedCoord, savedCoord }) {
     const newCo = coRef.current.value;
 
     writeSavedCoord(newLat, newLon, newZone, newEasting, newNorthing, newCo);
-  }
+  };
 
-  function startFetchIntervalGPS() {
+  const startFetchIntervalGPS = () => {
     if (intervalFetchGPS.current) return;
     setIsReadingGPS(true);
 
@@ -54,18 +54,18 @@ function Location({ writeSavedCoord, savedCoord }) {
         stopFetchIntervalGPS();
       }
     }, 3000);
-  }
+  };
 
-  function stopFetchIntervalGPS() {
+  const stopFetchIntervalGPS = () => {
     if (intervalFetchGPS.current) {
       clearInterval(intervalFetchGPS.current);
       intervalFetchGPS.current = null;
       setIsReadingGPS(false);
       console.log("stop read gps");
     }
-  }
+  };
 
-  function convertToUTM() {
+  const convertToUTM = () => {
     const lat = latRef.current.value;
     const lon = lonRef.current.value;
 
@@ -108,7 +108,7 @@ function Location({ writeSavedCoord, savedCoord }) {
       1,
       strCOE.length - 1
     )}, ${strCON.substring(2, strCON.length - 1)}`;
-  }
+  };
 
   useEffect(() => {
     return () => stopFetchIntervalGPS();

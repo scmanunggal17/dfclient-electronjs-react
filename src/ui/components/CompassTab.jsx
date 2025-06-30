@@ -8,7 +8,7 @@ function CompassTab({
 }) {
   const cmpsOffsetRef = useRef(null);
 
-  function setCmpsOffsetCorrection() {
+  const setCmpsOffsetCorrection = () => {
     const newOffsetCor = cmpsOffsetRef.current.value;
 
     if (newOffsetCor === "") {
@@ -18,9 +18,9 @@ function CompassTab({
     }
 
     setCmpsOffsetCor(Number(newOffsetCor));
-  }
+  };
 
-  function saveCmpsOffsetCfg() {
+  const saveCmpsOffsetCfg = () => {
     const newOffsetCor = cmpsOffsetRef.current.value;
 
     if (newOffsetCor === "") {
@@ -29,7 +29,7 @@ function CompassTab({
     }
 
     writeCmpsOffsetCfg(Number(newOffsetCor));
-  }
+  };
 
   return (
     <div style={styles.compassTab}>

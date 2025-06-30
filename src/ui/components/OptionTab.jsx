@@ -6,7 +6,7 @@ function OptionTab({ setUnitName, unitName }) {
   const [errMsg, setErrMsg] = useState("");
   const unitNameRef = useRef(null);
 
-  function handleTurnOff() {
+  const handleTurnOff = () => {
     turnOffDF();
     setMsgDialog(
       "System akan mati dalam ± 15 detik.\nJangan langsung matikan sumber power!"
@@ -14,9 +14,9 @@ function OptionTab({ setUnitName, unitName }) {
     setTimeout(() => {
       setMsgDialog("");
     }, 5000);
-  }
+  };
 
-  function handleRestart() {
+  const handleRestart = () => {
     restartDF();
     setMsgDialog(
       "System akan restart dalam ± 1 menit. \nBuka Aplikasi kembali setelah 1 menit!"
@@ -24,9 +24,9 @@ function OptionTab({ setUnitName, unitName }) {
     setTimeout(() => {
       setMsgDialog("");
     }, 5000);
-  }
+  };
 
-  function handleSetName() {
+  const handleSetName = () => {
     const newName = unitNameRef.current.value;
     if (!newName) {
       setErrMsg("Unit Name harus diisi");
@@ -39,7 +39,7 @@ function OptionTab({ setUnitName, unitName }) {
     setErrMsg("");
     setUnitName(newName);
     setStationId(newName);
-  }
+  };
 
   return (
     <div style={styles.OptionTab}>
