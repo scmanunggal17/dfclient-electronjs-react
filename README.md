@@ -13,7 +13,7 @@ build with reactjs, electronjs, & vite
 - cek hasil DF apakah terbalik atau tidak (format Polar atau compass?) OK (terbalik)
 - save config compass, OK, masih kurang peringatan jika format salah
 - ganti default value saved coord dengan format penulisan yang benar, tambah peringatan jika format salah saat menyimpan
-- Detail view
+- Detail view OK
 - top menu: Refresh, left, right, bottom
 
 contoh data df
