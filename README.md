@@ -14,7 +14,7 @@ build with reactjs, electronjs, & vite
 - save config compass, OK, masih kurang peringatan jika format salah
 - ganti default value saved coord dengan format penulisan yang benar, tambah peringatan jika format salah saat menyimpan
 - Detail view OK
-- top menu: Refresh, left, right, bottom
+- top menu: Refresh, left, right OK
 
 contoh data df
 
