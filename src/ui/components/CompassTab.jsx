@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 
 function CompassTab({
   writeCmpsOffsetCfg,
@@ -7,13 +7,24 @@ function CompassTab({
   cmpsHeading,
 }) {
   const cmpsOffsetRef = useRef(null);
+  const [errMsg, setErrMsg] = useState("");
 
   const setCmpsOffsetCorrection = () => {
     const newOffsetCor = cmpsOffsetRef.current.value;
 
     if (newOffsetCor === "") {
-      //ganti ke error
-      // alert("Please enter a valid correction value.");
+      setErrMsg("Offset tidak boleh kosong");
+      setTimeout(() => {
+        setErrMsg("");
+      }, 2000);
+      return;
+    }
+
+    if (newOffsetCor >= 360 || newOffsetCor <= -360) {
+      setErrMsg("Masukan angka yg benar, -359 s/d 359");
+      setTimeout(() => {
+        setErrMsg("");
+      }, 2000);
       return;
     }
 
@@ -24,7 +35,18 @@ function CompassTab({
     const newOffsetCor = cmpsOffsetRef.current.value;
 
     if (newOffsetCor === "") {
-      // alert("Please enter a valid correction value.");
+      setErrMsg("Offset tidak boleh kosong");
+      setTimeout(() => {
+        setErrMsg("");
+      }, 2000);
+      return;
+    }
+
+    if (newOffsetCor >= 360 || newOffsetCor <= -360) {
+      setErrMsg("Masukan angka yg benar, -359 s/d 359");
+      setTimeout(() => {
+        setErrMsg("");
+      }, 2000);
       return;
     }
 
@@ -33,9 +55,23 @@ function CompassTab({
 
   return (
     <div style={styles.compassTab}>
-      <div style={{ borderBottom: "2px solid gray" }}>
-        <span style={{ marginLeft: "8px", fontWeight: "500" }}>Compass</span>
-      </div>
+      {errMsg ? (
+        <div
+          style={{
+            borderBottom: "2px solid gray",
+            backgroundColor: "darkred",
+            color: "white",
+            textAlign: "center",
+            fontWeight: "600",
+          }}
+        >
+          Error, {errMsg}
+        </div>
+      ) : (
+        <div style={{ borderBottom: "2px solid gray" }}>
+          <span style={{ marginLeft: "8px", fontWeight: "500" }}>Compass</span>
+        </div>
+      )}
       <div style={styles.compassContainer}>
         <div style={styles.compassCircle}>
           <div style={styles.circle}>

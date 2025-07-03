@@ -24,7 +24,7 @@ function App() {
       readCompass()
         .then((cmpsData) => {
           const cmpsHead =
-            Math.round(cmpsData.heading) - cmpsOffsetCorRef.current;
+            (Math.round(cmpsData.heading) - cmpsOffsetCorRef.current) % 360;
           setCmpsHeading(cmpsHead);
         })
         .catch((err) => {
