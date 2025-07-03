@@ -19,8 +19,6 @@ function Location({ writeSavedCoord, savedCoord }) {
   const intervalFetchGPS = useRef(null);
   const counterIntervalGPS = useRef(0);
 
-  console.log("location tab loaded");
-
   const saveCoord = () => {
     const newLat = latRef.current.value;
     const newLon = lonRef.current.value;
@@ -28,6 +26,30 @@ function Location({ writeSavedCoord, savedCoord }) {
     const newEasting = eastingRef.current.value;
     const newNorthing = northingRef.current.value;
     const newCo = coRef.current.value;
+
+    if (!newLat || !newLon) {
+      setErrMsg("Field tidak boleh kosong");
+      setTimeout(() => {
+        setErrMsg("");
+      }, 2000);
+      return;
+    }
+
+    if (!isDmsRegexMatch(newLat)) {
+      setErrMsg("Format latitude salah");
+      setTimeout(() => {
+        setErrMsg("");
+      }, 2000);
+      return;
+    }
+
+    if (!isDmsRegexMatch(newLon)) {
+      setErrMsg("Format longitude salah");
+      setTimeout(() => {
+        setErrMsg("");
+      }, 2000);
+      return;
+    }
 
     writeSavedCoord(newLat, newLon, newZone, newEasting, newNorthing, newCo);
   };
