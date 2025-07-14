@@ -150,7 +150,15 @@ function ControlPanel({ cmpsHeading, cmpsOffsetCor, setCmpsOffsetCor }) {
           (loading ? (
             <div>Loading...</div>
           ) : error ? (
-            <div style={{ color: "red" }}>
+            <div
+              style={{
+                color: "red",
+                padding: "20px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
               <div>{error}</div>
               <div>Periksa kabel & koneksi Unit DF</div>
               <div>
