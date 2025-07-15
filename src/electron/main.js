@@ -23,7 +23,6 @@ const createWindow = () => {
     },
   });
 
-  // Correct absolute path to dist-react/index.html
   win.loadFile(path.join(__dirname, "../../dist-react/index.html"));
 };
 
