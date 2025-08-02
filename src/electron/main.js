@@ -1,12 +1,10 @@
-import { app, BrowserWindow, screen, ipcMain } from "electron";
-import path from "node:path";
+const { app, BrowserWindow, screen, ipcMain } = require("electron");
+const path = require("path");
 
 const createWindow = () => {
   const primaryDisplay = screen.getPrimaryDisplay();
   const { width, height } = primaryDisplay.workAreaSize;
 
-  //Edit ini
-  // const winHeight = height - 46;
   const winHeight = 912;
   const posX = width - 400;
 
@@ -21,12 +19,11 @@ const createWindow = () => {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: true,
-      preload: path.join(app.getAppPath(), "src/electron/preload.cjs"),
+      preload: path.join(__dirname, "preload.cjs"),
     },
   });
 
-  win.loadFile("dist-react/index.html");
-  // console.log("window Height: " + height);
+  win.loadFile(path.join(__dirname, "../../dist-react/index.html"));
 };
 
 app.whenReady().then(() => {

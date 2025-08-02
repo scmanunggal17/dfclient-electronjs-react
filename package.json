@@ -2,14 +2,32 @@
   "name": "dfclient-electronjs-react",
   "private": true,
   "version": "0.0.1",
-  "main": "src/electron/main",
-  "type": "module",
+  "main": "src/electron/main.js",
+  "build": {
+    "appId": "com.scmanunggal.monobsdf",
+    "productName": "SCM DF",
+    "directories": {
+      "buildResources": "assets"
+    },
+    "files": [
+      "dist-react/**/*",
+      "src/electron/**/*"
+    ],
+    "win": {
+      "target": ["nsis", "portable"]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
   "scripts": {
     "dev-react": "vite dev",
     "dev": "vite build && electron .",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "dist": "npm run build && electron-builder"
   },
   "dependencies": {
     "chart.js": "^4.5.0",
@@ -23,12 +41,16 @@
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^4.3.4",
-    "electron": "^34.0.2",
+    "concurrently": "^9.2.0",
+    "cross-env": "^7.0.3",
+    "electron": "^34.5.8",
+    "electron-builder": "^26.0.12",
     "eslint": "^9.17.0",
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.14.0",
-    "vite": "^6.0.5"
+    "vite": "^6.0.5",
+    "wait-on": "^8.0.3"
   }
 }
