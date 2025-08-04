@@ -1,5 +1,8 @@
 const { app, BrowserWindow, screen, ipcMain } = require("electron");
 const path = require("path");
+const dgram = require('dgram');
+
+let mainWIndow;
 
 const createWindow = () => {
   const primaryDisplay = screen.getPrimaryDisplay();
@@ -8,7 +11,7 @@ const createWindow = () => {
   const winHeight = 912;
   const posX = width - 400;
 
-  const win = new BrowserWindow({
+  mainWIndow = new BrowserWindow({
     minHeight: 700,
     minWidth: 400,
     width: 400,
@@ -23,7 +26,18 @@ const createWindow = () => {
     },
   });
 
-  win.loadFile(path.join(__dirname, "../../dist-react/index.html"));
+  mainWIndow.loadFile(path.join(__dirname, "../../dist-react/index.html"));
+
+  const udpSocket = dgram.createSocket('udp4');
+
+  udpSocket.on('message', (msg, rinfo) => {
+    console.log(`received message: ${msg} from ${rinfo.address}:${rinfo.port}`);
+    if(mainWIndow){
+      mainWIndow.webContents.send('udp-message', msg.toString());
+    }
+  });
+
+  udpSocket.bind(41234, "127.0.0.1");
 };
 
 app.whenReady().then(() => {
@@ -49,26 +63,21 @@ ipcMain.on("close-app", () => {
 });
 
 ipcMain.on("reload-window", () => {
-  const win = BrowserWindow.getFocusedWindow();
-  if (win) {
-    win.reload();
+  if (mainWIndow) {
+    mainWIndow.reload();
   }
 });
 
 ipcMain.on("move-window", (event, side) => {
-  let posX = 0;
-  if (side === "left") {
-    posX = 0;
-  } else if (side === "right") {
-    posX = screen.getPrimaryDisplay().workAreaSize.width - 400;
-  }
-  const win = BrowserWindow.getFocusedWindow();
-  if (win) {
-    win.setBounds({
-      x: posX,
-      y: 0,
-      width: win.getBounds().width,
-      height: win.getBounds().height,
-    });
-  }
+
+  if(!mainWIndow) return;
+
+  const { width } = screen.getPrimaryDisplay().workAreaSize;
+  const posX = side === "right" ? width - 400 : 0;
+  mainWIndow.setBounds({
+    x: posX,
+    y: 0,
+    width: mainWIndow.getBounds().width,
+    height: mainWIndow.getBounds().height,
+  });
 });

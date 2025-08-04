@@ -1,7 +1,8 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 function SetFreqTab({ setFreqGain, freq, gain }) {
   const [errMsg, setErrMsg] = useState("");
+  const [udpListening, setUdpListening] = useState(false);
 
   const freqRef = useRef(null);
   const gainRef = useRef(null);
@@ -29,6 +30,19 @@ function SetFreqTab({ setFreqGain, freq, gain }) {
     setErrMsg("");
     setFreqGain(newFreq, newGain);
   };
+
+  useEffect(() => {
+    if (udpListening) {
+      window.NodeFn.startUdpListener((data) => {
+        console.log("Received UDP message:", data);
+      });
+    } else {
+      window.NodeFn.stopUdpListener();
+    }
+    return () => {
+      window.NodeFn.stopUdpListener();
+    };
+  }, [udpListening]);
 
   return (
     <div style={styles.setFreqTab}>
@@ -100,6 +114,9 @@ function SetFreqTab({ setFreqGain, freq, gain }) {
           Apply
         </button>
       </div>
+      <button type="button" style={styles.applyBtn} onClick={() => setUdpListening(!udpListening)}>
+        {udpListening ? "Stop Listening" : "Start Listening"}
+      </button>
     </div>
   );
 }

@@ -2,6 +2,8 @@ const { contextBridge, ipcRenderer } = require("electron");
 const fs = require("fs");
 const utm = require("utm");
 
+let udpCallbackRef = null;
+
 contextBridge.exposeInMainWorld("NodeFn", {
   closeApp: () => {
     ipcRenderer.send("close-app");
@@ -50,4 +52,15 @@ contextBridge.exposeInMainWorld("NodeFn", {
   },
   reloadWindow: () => ipcRenderer.send("reload-window"),
   moveWindow: (side) => ipcRenderer.send("move-window", side),
+
+  startUdpListener: (callback) => {
+    udpCallbackRef = (_event, data) => callback(data);
+    ipcRenderer.on("udp-message", udpCallbackRef);
+  },
+  stopUdpListener: () => {
+    if (udpCallbackRef) {
+      ipcRenderer.removeListener("udp-message", udpCallbackRef);
+      udpCallbackRef = null;
+    }
+  },
 });
