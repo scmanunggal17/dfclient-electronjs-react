@@ -1,8 +1,14 @@
 import { useRef, useState, useEffect } from "react";
 
-function SetFreqTab({ setFreqGain, freq, gain }) {
+function SetFreqTab({
+  setFreqGain,
+  freq,
+  gain,
+  udpListening,
+  setUdpListening,
+  udpFreqData,
+}) {
   const [errMsg, setErrMsg] = useState("");
-  const [udpListening, setUdpListening] = useState(false);
 
   const freqRef = useRef(null);
   const gainRef = useRef(null);
@@ -30,19 +36,6 @@ function SetFreqTab({ setFreqGain, freq, gain }) {
     setErrMsg("");
     setFreqGain(newFreq, newGain);
   };
-
-  useEffect(() => {
-    if (udpListening) {
-      window.NodeFn.startUdpListener((data) => {
-        console.log("Received UDP message:", data);
-      });
-    } else {
-      window.NodeFn.stopUdpListener();
-    }
-    return () => {
-      window.NodeFn.stopUdpListener();
-    };
-  }, [udpListening]);
 
   return (
     <div style={styles.setFreqTab}>
@@ -114,9 +107,18 @@ function SetFreqTab({ setFreqGain, freq, gain }) {
           Apply
         </button>
       </div>
-      <button type="button" style={styles.applyBtn} onClick={() => setUdpListening(!udpListening)}>
+      <button
+        type="button"
+        style={styles.applyBtn}
+        onClick={() => setUdpListening(!udpListening)}
+      >
         {udpListening ? "Stop Listening" : "Start Listening"}
       </button>
+      <div style={{ padding: "4px 8px", fontWeight: "500", fontSize: "24px" }}>
+        {udpFreqData
+          ? `Data Spectrum: ${udpFreqData} Mhz`
+          : "Data Spectrum: No Data"}
+      </div>
     </div>
   );
 }

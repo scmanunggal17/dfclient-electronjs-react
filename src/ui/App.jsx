@@ -15,6 +15,8 @@ function App() {
   const [dfHeading, setDfHeading] = useState(0);
   const [dfHasData, setDfHasData] = useState(false);
   const [polarData, setPolarData] = useState([]);
+  const [udpListening, setUdpListening] = useState(false);
+  const [udpFreqData, setUdpFreqData] = useState(null);
 
   const startFetchIntervalCmps = () => {
     if (intervalFetchCmps.current) return;
@@ -86,7 +88,18 @@ function App() {
 
   useEffect(() => {
     cmpsOffsetCorRef.current = cmpsOffsetCor;
-  }, [cmpsOffsetCor]);
+
+    if (udpListening) {
+      window.NodeFn.startUdpListener((data) => {
+        setUdpFreqData(data);
+      });
+    } else {
+      window.NodeFn.stopUdpListener();
+    }
+    return () => {
+      window.NodeFn.stopUdpListener();
+    };
+  }, [cmpsOffsetCor, udpListening]);
 
   return (
     <div style={styles.container}>
@@ -102,6 +115,9 @@ function App() {
         cmpsHeading={cmpsHeading}
         cmpsOffsetCor={cmpsOffsetCor}
         setCmpsOffsetCor={setCmpsOffsetCor}
+        udpListening={udpListening}
+        setUdpListening={setUdpListening}
+        udpFreqData={udpFreqData}
       />
     </div>
   );

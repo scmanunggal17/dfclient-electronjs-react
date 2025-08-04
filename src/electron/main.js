@@ -30,10 +30,15 @@ const createWindow = () => {
 
   const udpSocket = dgram.createSocket('udp4');
 
-  udpSocket.on('message', (msg, rinfo) => {
-    console.log(`received message: ${msg} from ${rinfo.address}:${rinfo.port}`);
-    if(mainWIndow){
-      mainWIndow.webContents.send('udp-message', msg.toString());
+  udpSocket.on('message', (msg, _rinfo) => {
+    const dataInHz = parseInt(msg.toString().trim(), 10)
+
+    if(!isNaN(dataInHz) && dataInHz > 0) {
+      const dataInMhz = (dataInHz / 1_000_000).toFixed(3);
+
+      if(mainWIndow) {
+        mainWIndow.webContents.send('udp-message', dataInMhz);
+      }
     }
   });
 
@@ -68,7 +73,7 @@ ipcMain.on("reload-window", () => {
   }
 });
 
-ipcMain.on("move-window", (event, side) => {
+ipcMain.on("move-window", (_event, side) => {
 
   if(!mainWIndow) return;
 

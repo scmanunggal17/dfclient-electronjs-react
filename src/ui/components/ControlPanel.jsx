@@ -6,7 +6,14 @@ import CompassTab from "./CompassTab";
 import LocationTab from "./LocationTab";
 import OptionTab from "./OptionTab";
 
-function ControlPanel({ cmpsHeading, cmpsOffsetCor, setCmpsOffsetCor }) {
+function ControlPanel({
+  cmpsHeading,
+  cmpsOffsetCor,
+  setCmpsOffsetCor,
+  udpListening,
+  setUdpListening,
+  udpFreqData,
+}) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -172,6 +179,9 @@ function ControlPanel({ cmpsHeading, cmpsOffsetCor, setCmpsOffsetCor }) {
               freq={freq}
               gain={gain}
               unitName={unitName}
+              udpListening={udpListening}
+              setUdpListening={setUdpListening}
+              udpFreqData={udpFreqData}
             />
           ))}
 
