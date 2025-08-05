@@ -87,19 +87,21 @@ function App() {
   }, []);
 
   useEffect(() => {
-    cmpsOffsetCorRef.current = cmpsOffsetCor;
+  cmpsOffsetCorRef.current = cmpsOffsetCor;
 
-    if (udpListening) {
-      window.NodeFn.startUdpListener((data) => {
-        setUdpFreqData(data);
-      });
-    } else {
-      window.NodeFn.stopUdpListener();
-    }
+  if (udpListening) {
+    const handler = (data) => {
+      setUdpFreqData(data);
+    };
+    window.NodeFn.startUdpListener(handler);
+
     return () => {
       window.NodeFn.stopUdpListener();
     };
-  }, [cmpsOffsetCor, udpListening]);
+  } else {
+    window.NodeFn.stopUdpListener();
+  }
+}, [cmpsOffsetCor, udpListening]);
 
   return (
     <div style={styles.container}>
