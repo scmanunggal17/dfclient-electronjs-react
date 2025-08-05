@@ -42,7 +42,7 @@ const createWindow = () => {
     }
   });
 
-  udpSocket.bind(41234, "127.0.0.1");
+  udpSocket.bind(55555, "127.0.0.1");
 };
 
 app.whenReady().then(() => {
