@@ -10,8 +10,8 @@ function ControlPanel({
   cmpsHeading,
   cmpsOffsetCor,
   setCmpsOffsetCor,
-  udpListening,
-  setUdpListening,
+  freqFromUdp,
+  setFreqFromUdp,
   udpFreqData,
 }) {
   const [loading, setLoading] = useState(true);
@@ -179,8 +179,8 @@ function ControlPanel({
               freq={freq}
               gain={gain}
               unitName={unitName}
-              udpListening={udpListening}
-              setUdpListening={setUdpListening}
+              freqFromUdp={freqFromUdp}
+              setFreqFromUdp={setFreqFromUdp}
               udpFreqData={udpFreqData}
             />
           ))}

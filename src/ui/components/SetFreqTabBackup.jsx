@@ -4,8 +4,8 @@ function SetFreqTab({
   setFreqGain,
   freq,
   gain,
-  freqFromUdp,
-  setFreqFromUdp,
+  udpListening,
+  setUdpListening,
   udpFreqData,
 }) {
   const [errMsg, setErrMsg] = useState("");
@@ -110,9 +110,9 @@ function SetFreqTab({
       <button
         type="button"
         style={styles.applyBtn}
-        onClick={() => setFreqFromUdp(!freqFromUdp)}
+        onClick={() => setUdpListening(!udpListening)}
       >
-        {freqFromUdp ? "Stop Listening" : "Start Listening"}
+        {udpListening ? "Stop Listening" : "Start Listening"}
       </button>
       <div style={{ padding: "4px 8px", fontWeight: "500", fontSize: "24px" }}>
         {udpFreqData
